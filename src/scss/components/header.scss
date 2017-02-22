@@ -1,0 +1,24 @@
+.header {
+  background-color: $backgroundColor;
+  color: $textColor;
+  border-bottom: 1px solid #333;
+  width: 100%;
+}
+
+.header-container {
+  display: table;
+  height: $headerHeight;
+  margin: 0px auto;
+  max-width: $maxPageWidth;
+  width: 100%;
+}
+
+.nav-container, .logo {
+  display: table-cell;
+}
+
+.logo {
+  min-width: 100px;
+  text-align: right;
+  width: 20%;
+}
