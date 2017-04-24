@@ -1,0 +1,32 @@
+:root {
+  /* Colors */
+  --white: #ffffff;
+  --black: #2F343B;
+  --off-white: #E3CDA4;
+  --grey: #7E827A;
+  --red: #703030;
+  --orange: #C7793C;
+  --shadow: rgba(0,0,0, .5);
+
+  /* Color Application */
+  --primary-color: var(--red);
+  --accent-color: var(--orange);
+  --primary-background-color: var(--off-white);
+  --background-color: var(--white);
+  --text-color: var(--black);
+  --border-color: var(--gray);
+
+  /* Global Values */
+  --max-page-width: 1000px;
+  --header-height: 40px;
+  --nav-width: 15rem;
+  --font-family: 'Helvetica', Arial, sans-serif;
+  --font-size: 16px;
+  --box-shadow: 0 5px 10px -5px var(--shadow);
+
+  /* Breakpoints */
+  --small-break: 'screen and (min-width: 400px)';
+  --medium-break: 'screen and (min-width: 700px)';
+  --large-break: 'screen and (min-width: 1000px)';
+  --xlarge-break: 'screen and (min-width: 1400px)';
+}

@@ -1,0 +1,31 @@
+.header {
+  background-color: var(--background-color);
+  color: var(--text-color);
+  border-bottom: 1px solid var(--grey);
+  padding: 0 1rem;
+}
+
+.header-container {
+  display: table;
+  height: var(--header-height);
+  margin: 0px auto;
+  max-width: var(--max-page-width);
+  width: 100%;
+}
+
+.nav-container,
+.logo-container {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.logo-container {
+  min-width: 100px;
+  text-align: right;
+  width: 20%;
+}
+
+.logo {
+  height: 1.5rem;
+  margin: 1rem 0;
+}

@@ -1,0 +1,22 @@
+html {
+  background: var(--primary-background-color);
+  color: var(--text-color);
+  font-size: var(--font-size);
+  font-family: var(--font-family);
+  min-width: 20rem;
+}
+
+.main-body {
+  margin: 0 auto;
+  max-width: var(--max-page-width);
+  padding: 1rem 0;
+  text-align: center;
+}
+
+.container {
+  background: var(--background-color);
+  margin-bottom: 1rem;
+  padding: 1rem;
+  text-align: left;
+  box-shadow: var(--box-shadow);
+}
