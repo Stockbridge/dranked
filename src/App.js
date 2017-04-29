@@ -1,20 +1,22 @@
 import React, { Component } from 'react';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+
 import './css/variables.css';
 import './css/reset.css';
 import './css/main.css';
 
-import Header from './modules/header';
-
+import Home from './pages/home';
+import EventHome from './pages/event';
 
 class App extends Component {
   render() {
     return (
-      <div>
-        <Header />
-        <div className="main-body">
-          <section className="container">thing</section>
+      <Router>
+        <div>
+          <Route exact path="/" component={Home}/>
+          <Route path="/event" component={EventHome}/>
         </div>
-      </div>
+      </Router>
     );
   }
 }
