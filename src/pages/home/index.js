@@ -4,9 +4,13 @@ import Header from '../../modules/header'
 class Home extends Component {
   render() {
     return (
-        <div> 
+        <div id="home">
             <Header />
-            <p>Home Page</p>
+            <div className="main-body">
+              <div className="container">
+                <p>Home Page</p>
+              </div>
+            </div>
         </div>
     );
   }

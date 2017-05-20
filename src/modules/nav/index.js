@@ -11,7 +11,7 @@ class Nav extends Component {
             <Link to="/">Home</Link>
           </li>
           <li>
-            <Link to="/event">Event</Link>
+            <Link to="/event/0000001">Event</Link>
           </li>
         </ul>
       </nav>

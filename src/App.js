@@ -14,7 +14,7 @@ class App extends Component {
       <Router>
         <div>
           <Route exact path="/" component={Home}/>
-          <Route path="/event" component={EventHome}/>
+          <Route path="/event/:eventId" component={EventHome} />
         </div>
       </Router>
     );
