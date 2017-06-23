@@ -1,0 +1,25 @@
+{
+  "sessionID": "hash",
+  "preSession": true,
+  "postSession": false,
+  "userID": "hash",
+  "isProctor": false,
+  "items": [{
+    "voted": false,
+    "assignedNumber": 0,
+    "voteValues": [{ 
+      "rating": 0, 
+      "type": "string",
+      "comments": "string"
+    }],
+    "values": { 
+      "name": "stirng",
+      "type": "string",
+      "aggregateRating": 0,
+      "submittedUser": {
+        "name": "string",
+        "userID": "hash"
+      }
+    }
+  }]
+}
