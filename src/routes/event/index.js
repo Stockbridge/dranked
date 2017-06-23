@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import Header from '../../modules/header'
+import Header from '../../components/header'
 
 class EventHome extends Component {
   render() {
@@ -12,25 +12,7 @@ class EventHome extends Component {
                 </section>
                 
                 <section className="container">
-                    {/* AnonymousItem : { 
-                        voted: boolean, 
-                        assignedNumber: int, 
-                        voteValues: { 
-                            rating: int, 
-                            ...userDefinedFields 
-                        }  
-                    } */}
-                    {/* Item : { 
-                        voted: boolean, 
-                        assignedNumber: int, 
-                        voteValues: { 
-                            rating: int, 
-                            ...userDefinedFields 
-                        }, 
-                        actualValues: { 
-                            ...userDefinedFields 
-                        } 
-                    } */}
+                    
                 </section>
             </section>
         </div>
