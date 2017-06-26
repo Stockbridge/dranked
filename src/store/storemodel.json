@@ -1,25 +1,30 @@
 {
   "sessionID": "hash",
+  "sessionCode": "string",
   "sessionState": "active", //"pre", "post"
   "userID": "hash",
   "userDisplayName": "string",
   "isProctor": false,
+  "userVotes": ["hash"],
   "items": [{
     "itemID": "hash",
-    "voted": false,
-    "assignedNumber": 0,
-    "aggregateRating": 0,
     "name": "string",
     "type": "string",
+    "assignedNumber": 0,
+    "aggregateRating": 0,
     "submittedUser": {
       "userDisplayName": "string",
       "userID": "hash"
     },
-    "votes": [{ 
+    "votes": [{
+      "voteID": "hash",
       "rating": 0, 
       "type": "string",
       "comments": "string",
-      "userID": "hash"
+      "submittedUser": {
+        "userDisplayName": "string",
+        "userID": "hash"
+      },
     }]
   }]
 }

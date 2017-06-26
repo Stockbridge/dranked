@@ -1,16 +1,17 @@
 {
   "createSession": "function(userID, userDisplayName)",
   "startSession": "function(userID)",
-  "endSession": "function(userID)",
+  "endSession": "function(userID)"
 }
 
 {
-  "submitItem": "function({name, type, userID, userDisplayName})",
-  "editSubmittedItem": "function(itemID, {name, type, userID, userDisplayName})",
-  "removeItem": "function(itemID)",
+  "submitItem": "function({name, type}, submittedUser)",
+  "editItem": "function(itemID, {name, type}, submittedUser)",
+  "removeItem": "function(itemID)"
 }
 
 {
-  "submitVote": "function(itemID, {rating, type, comments, userID})",
-  "editSubmittedVote": "function(itemID, {rating, type, comments, userID})"
+  "submitVote": "function(itemID, {rating, type, comments}, submittedUser)",
+  "editVote": "function(itemID, {rating, type, comments}, submittedUser)",
+  "removeVote": "function(itemID)"
 }
