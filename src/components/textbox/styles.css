@@ -1,0 +1,13 @@
+.textbox {
+  display: inline-block;
+  padding:  .25rem;
+}
+
+.textbox__label {
+  color: var(--grey);
+  margin-right:  .25rem;
+}
+
+.textbox__input {
+  font-size: inherit;
+}
