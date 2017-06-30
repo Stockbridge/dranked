@@ -4,7 +4,7 @@ import Header from '../../components/header'
 class EventHome extends Component {
   render() {
     return (
-        <div id="eventHome" data-eventId={this.props.match.params.eventId}>
+        <main id="eventHome" data-eventId={this.props.match.params.eventId}>
             <Header />
             <section className="main-body">
                 <section className="container">
@@ -15,7 +15,7 @@ class EventHome extends Component {
                     
                 </section>
             </section>
-        </div>
+        </main>
     );
   }
 }
