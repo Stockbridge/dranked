@@ -3,11 +3,11 @@ import { PropTypes } from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import * as itemActions from '../actions/itemActions';
-import ItemList from '../components/ItemList';
-import SubmitForm from '../components/SubmitForm';
+import * as itemActions from '../../actions/itemActions';
+import SubmissionList from '../../components/submission-list';
+import SubmissionForm from '../../components/submission-form';
 
-class ItemContainer extends Component {
+class SubmissionContainer extends Component {
   constructor(props) {
     super(props);
 
@@ -21,14 +21,14 @@ class ItemContainer extends Component {
 
     return (
       <div>
-        <SubmitForm submitItem={this.props.actions.submitItem} />
-        <ItemList submittedItems={submittedItems} />
+        <SubmissionForm submitItem={this.props.actions.submitItem} />
+        <SubmissionList submittedItems={submittedItems} />
       </div>
     );
   }
 }
 
-ItemContainer.propTypes = {
+SubmissionContainer.propTypes = {
   submittedItems: PropTypes.array.isRequired,
   actions: PropTypes.object.isRequired
 };
@@ -45,4 +45,4 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ItemContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(SubmissionContainer);

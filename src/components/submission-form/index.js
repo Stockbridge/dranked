@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { PropTypes } from 'prop-types';
-import { TextBox } from './textbox';
+import { TextBox } from '../textbox';
 
 class SubmitForm extends Component {
   constructor(props) {
