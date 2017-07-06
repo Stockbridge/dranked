@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import Header from '../../components/header'
-import ItemContainer from '../../containers/itemContainer';
+import SubmissionContainer from '../../containers/submission-container';
 
 class Home extends Component {
   render() {
@@ -10,7 +10,7 @@ class Home extends Component {
             <div className="main-body">
               <div className="container">
                 <p>Home Page</p>
-                <ItemContainer />
+                <SubmissionContainer />
               </div>
             </div>
         </main>
