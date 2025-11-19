@@ -1,18 +1,20 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { query } from '../../../../lib/db';
+import { insertItem } from '../../../../lib/db/items';
 
 export async function POST(request: NextRequest) {
   try {
     const { eventId, name, producer, year, type, addedBy } = await request.json();
 
-    const result = await query(
-      `INSERT INTO items (event_id, name, producer, year, type, added_by)
-       VALUES ($1, $2, $3, $4, $5, $6)
-       RETURNING *`,
-      [eventId, name, producer, year, type, addedBy]
-    );
+    const item = await insertItem({
+      eventId,
+      name,
+      producer,
+      year,
+      type,
+      addedBy
+    });
 
-    return NextResponse.json(result.rows[0]);
+    return NextResponse.json(item);
 
   } catch (error) {
     console.error('Error adding item:', error);

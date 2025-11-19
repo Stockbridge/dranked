@@ -1,19 +1,16 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { query } from '../../../../lib/db';
+import { upsertUser } from '../../../../lib/db/users';
 
 export async function POST(request: NextRequest) {
   try {
     const { eventId, name } = await request.json();
 
-    const result = await query(
-      `INSERT INTO users (event_id, name)
-       VALUES ($1, $2)
-       ON CONFLICT (event_id, name) DO UPDATE SET joined_at = NOW()
-       RETURNING *`,
-      [eventId, name]
-    );
+    const user = await upsertUser({
+      eventId,
+      name
+    });
 
-    return NextResponse.json(result.rows[0]);
+    return NextResponse.json(user);
 
   } catch (error) {
     console.error('Error adding user:', error);

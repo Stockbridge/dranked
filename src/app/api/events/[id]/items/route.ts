@@ -1,18 +1,14 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { query } from '../../../../../../lib/db';
+import { getItemsByEventId } from '../../../../../../lib/db/items';
 
 export async function GET(
   request: NextRequest,
-  {params}: { params: Promise<{ id: string }> }
+  { params }: { params: Promise<{ id: string }> }
 ) {
-  const {id} = await params;
   try {
-    const result = await query(
-      'SELECT * FROM items WHERE event_id = $1 ORDER BY created_at ASC',
-      [id]
-    );
-
-    return NextResponse.json(result.rows);
+    const {id} = await params
+    const items = await getItemsByEventId(id);
+    return NextResponse.json(items);
 
   } catch (error) {
     console.error('Error fetching items:', error);
