@@ -1,12 +1,16 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { insertItem } from '../../../../lib/db/items';
+import { addItemToEvent } from '../../../../../../lib/db/items';
 
-export async function POST(request: NextRequest) {
+export async function POST(
+  request: NextRequest,
+  { params }: { params: Promise<{ id: string }> }
+) {
   try {
-    const { eventId, name, producer, year, type, addedBy } = await request.json();
+    const { id } = await params;
+    const { name, producer, year, type, addedBy } = await request.json();
 
-    const item = await insertItem({
-      eventId,
+    const item = await addItemToEvent({
+      eventId: id,
       name,
       producer,
       year,

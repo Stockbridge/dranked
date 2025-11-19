@@ -31,7 +31,7 @@ export interface CreateItemParams {
  * @returns Promise resolving to the created item record
  * @throws Database error if event doesn't exist or constraints violated
  */
-export const insertItem = async (params: CreateItemParams) => {
+export const addItemToEvent = async (params: CreateItemParams) => {
   const result = await query(
     `INSERT INTO items (event_id, name, producer, year, type, added_by)
      VALUES ($1, $2, $3, $4, $5, $6)

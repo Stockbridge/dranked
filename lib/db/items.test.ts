@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
-import { insertItem, getItemsByEventId } from './items';
+import { addItemToEvent, getItemsByEventId } from './items';
 
 vi.mock('../db', () => ({
   query: vi.fn()
@@ -13,7 +13,7 @@ describe('Items DB Functions', () => {
     mockQuery.mockClear();
   });
 
-  describe('insertItem', () => {
+  describe('addItemToEvent', () => {
     it('should create item with all fields', async () => {
       const mockResult = {
         rows: [{
@@ -35,7 +35,7 @@ describe('Items DB Functions', () => {
         addedBy: 'Test User'
       };
 
-      const result = await insertItem(params);
+      const result = await addItemToEvent(params);
 
       expect(mockQuery).toHaveBeenCalledWith(
         expect.stringContaining('INSERT INTO items'),

@@ -10,7 +10,7 @@ export async function GET(
   { params }: AddItemAPIParams
 ) {
   try {
-    const {id} = await params
+    const { id } = await params;
     const items = await getItemsByEventId(id);
     return NextResponse.json(items);
 
