@@ -1,9 +1,13 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getItemsByEventId } from '../../../../../../lib/db/items';
 
+export interface AddItemAPIParams {
+  params: Promise<{ id: string }>
+}
+
 export async function GET(
   request: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
+  { params }: AddItemAPIParams
 ) {
   try {
     const {id} = await params

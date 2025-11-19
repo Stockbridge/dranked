@@ -73,7 +73,7 @@ export const createEvent = async (data: CreateEventData): Promise<EventResponse>
  * @throws Error if API request fails
  */
 export const getEventItems = async (eventId: string) => {
-  const response = await fetch(`/api/events/${eventId}/items`);
+  const response = await fetch(`/api/event/${eventId}/items`);
   
   if (!response.ok) {
     throw new Error('Failed to fetch items');
