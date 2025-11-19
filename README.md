@@ -1,62 +1,174 @@
-## Summary
+# DRanked - Collaborative Tasting & Ranking
 
-An application that will allow a group of people (either in person or remote) to submit items for tasting and rank them against each other.
+A mobile-first web application that allows groups of people (in-person or remote) to submit items for tasting and rank them against each other.
 
-### Event Flow
+## Overview
 
-- Event is created by a single person (Host)
-- On creation event is given a unique id/password to be shared with other users (Guests)
-- Simple registration for Guests, event id/password and name entry
-- Events limited to 250 items (most should be 10-50)
-- No limit to event, can be long lasting (Fresh Hop Season ~18 weeks)
-- Events have a few distinct options:
-  - ItemType: Beer | Wine | Whiskey
-  - EventType: Blind | Open
-- Collabarative, any user can add an item
+DRanked enables collaborative tasting events where:
 
-### Mobile First Experience
+- **Host** creates an event with a unique join code
+- **Guests** join using the event code and their name
+- **Anyone** can add items to taste
+- **Everyone** rates items on a 1-10 scale
+- **Results** are compiled in real-time
 
-- Users use their phone to:
-  - add new items to event
-  - edit items (locked to submitting user or open?)
-  - rate items, add tasting notes
-- Easy to use one handed, large touch targets
+Perfect for beer tastings, wine nights, whiskey flights, and more!
 
----
+## Technology Stack
 
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+### Frontend
+
+- **Next.js 16** with App Router
+- **React 19** with TypeScript
+- **Tailwind CSS 4** for styling
+- **Mobile-first responsive design**
+
+### Backend
+
+- **PostgreSQL** database
+- **Next.js API Routes** for server-side logic
+- **pg** library for database connections
+
+### Development Tools
+
+- **TypeScript** for type safety
+- **ESLint** for code quality
+- **Vitest** for testing
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+
+- Node.js 18+
+- PostgreSQL database
+- npm or yarn
+
+### Installation
+
+1. Clone the repository:
+
+```bash
+git clone <repository-url>
+cd dranked
+```
+
+2. Install dependencies:
+
+```bash
+npm install
+```
+
+3. Set up your database:
+
+```bash
+# Create a PostgreSQL database
+createdb dranked
+
+# Set your database URL
+echo "DATABASE_URL=postgresql://username:password@localhost:5432/dranked" > .env.local
+```
+
+4. Initialize the database schema:
+
+```bash
+psql -d dranked -f lib/schema.sql
+```
+
+5. Start the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+6. Open [http://localhost:3000](http://localhost:3000) in your browser
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Features
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Event Management
 
-## Learn More
+- **Event Types**: Beer, Wine, Whiskey
+- **Tasting Styles**:
+  - **Open** - participants can see item details
+  - **Blind** - item details are hidden during tasting
+- **Flexible Duration**: Events can run for weeks (e.g., "Fresh Hop Season")
+- **Item Limit**: Up to 250 items per event (typical: 10-50)
 
-To learn more about Next.js, take a look at the following resources:
+### User Experience
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- **Simple Join Process**: Just event code + name
+- **Mobile Optimized**: Large touch targets, one-handed operation
+- **Collaborative**: Any participant can add items
+- **Real-time Updates**: Live updates as users add items and ratings
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Security & Access
 
-## Deploy on Vercel
+- **Host Control**: Secure admin access with cryptographic tokens
+- **Guest Access**: Simple 6-character join codes
+- **No Accounts**: Name-based identity within event scope
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Database Schema
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Core Tables
+
+- **events** - Event metadata, join codes, host tokens
+- **items** - Beverages/items being tasted
+- **users** - Event participants
+- **ratings** - User scores (1-10) for items
+
+See `lib/schema.sql` for complete schema definition.
+
+## Project Structure
+
+```
+/src/app/                    # Next.js App Router pages
+  ├── page.tsx              # Home page - event creation
+  ├── /api/                 # API routes
+  └── /event/[id]/          # Event pages
+
+/lib/                       # Business logic layer
+  ├── db.ts                # Database connection
+  ├── schema.sql           # Database schema
+  ├── /db/                 # Database operations
+  └── /api/                # API client functions
+
+/types/                     # TypeScript definitions
+```
+
+## API Endpoints
+
+### Events
+
+- `POST /api/event/create` - Create new event
+
+### Items
+
+- `GET /api/event/[id]/items` - List event items
+- `POST /api/event/[id]/add-item` - Add new item
+
+## Development
+
+### Available Scripts
+
+- `npm run dev` - Start development server
+- `npm run build` - Build for production
+- `npm run start` - Start production server
+- `npm run test` - Run tests
+- `npm run test:ui` - Run tests with UI
+- `npm run lint` - Run ESLint
+
+### Testing
+
+Unit tests are written with Vitest and located alongside implementation files:
+
+```bash
+npm run test        # Run all tests
+npm run test:ui     # Interactive test UI
+```
+
+### Environment Variables
+
+Create `.env.local` with:
+
+```
+DATABASE_URL=postgresql://username:password@localhost:5432/dranked
+```
