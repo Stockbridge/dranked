@@ -26,7 +26,7 @@ export interface CreateEventParams {
  * @returns Promise resolving to event record with generated codes
  * @throws Database error if creation fails
  */
-export const insertEvent = async (params: CreateEventParams) => {
+export const createEvent = async (params: CreateEventParams) => {
   const joinCode = Math.random().toString(36).substring(2, 8).toUpperCase();
   const hostToken = crypto.randomBytes(32).toString('hex');
 

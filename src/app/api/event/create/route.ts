@@ -1,11 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { insertEvent } from '../../../../lib/db/events';
+import { createEvent } from '../../../../../lib/db/event';
 
 export async function POST(request: NextRequest) {
   try {
     const { hostName, eventName, beverageType, tastingStyle } = await request.json();
 
-    const event = await insertEvent({
+    const event = await createEvent({
       hostName,
       eventName,
       beverageType,

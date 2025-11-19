@@ -52,7 +52,7 @@ export interface EventResponse {
  * ```
  */
 export const createEvent = async (data: CreateEventData): Promise<EventResponse> => {
-  const response = await fetch('/api/events', {
+  const response = await fetch('/api/event/create', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(data)

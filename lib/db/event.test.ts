@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
-import { insertEvent, getEventByJoinCode, getEventById } from './events';
+import { createEvent, getEventByJoinCode, getEventById } from './event';
 
 // Mock the database query function
 vi.mock('../db', () => ({
@@ -14,7 +14,7 @@ describe('Events DB Functions', () => {
     mockQuery.mockClear();
   });
 
-  describe('insertEvent', () => {
+  describe('createEvent', () => {
     it('should create event with generated codes', async () => {
       const mockResult = {
         rows: [{
@@ -32,7 +32,7 @@ describe('Events DB Functions', () => {
         tastingStyle: 'open' as const
       };
 
-      const result = await insertEvent(params);
+      const result = await createEvent(params);
 
       expect(mockQuery).toHaveBeenCalledWith(
         expect.stringContaining('INSERT INTO events'),

@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { createEvent } from '../../lib/api/event';
 
 export default function Home() {
   const [formData, setFormData] = useState({
@@ -18,14 +19,8 @@ export default function Home() {
     setIsLoading(true);
 
     try {
-      const response = await fetch('/api/events', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData)
-      });
-
-      const event = await response.json();
-      router.push(`/host/${event.id}?token=${event.hostToken}`);
+      const event = await createEvent(formData);
+      router.push(event.hostUrl);
     } catch (error) {
       console.error('Failed to create event:', error);
     } finally {
