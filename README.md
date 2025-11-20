@@ -139,11 +139,53 @@ See `lib/schema.sql` for complete schema definition.
 ### Events
 
 - `POST /api/event/create` - Create new event
+  - Body: `{ hostName, eventName, beverageType, tastingStyle }`
+  - Returns: Event with join code, host token, and host user
+- `GET /api/event/[id]` - Get event details
+  - Returns: Basic event info (name, host, beverage type, join code)
 
 ### Items
 
 - `GET /api/event/[id]/items` - List event items
 - `POST /api/event/[id]/add-item` - Add new item
+  - Body: `{ name, producer?, year?, type?, addedByUserId, addedByName }`
+- `PUT /api/event/[id]/edit-item` - Update existing item
+  - Body: `{ itemId, name, producer?, year?, type? }`
+
+### Users
+
+- `POST /api/users` - Join event as user
+  - Body: `{ eventId, name }`
+  - Returns: User record with ID
+
+### Ratings
+
+- `POST /api/ratings` - Submit/update rating
+  - Body: `{ eventId, itemId, userId, score }`
+
+## Pages & Routes
+
+### Public Pages
+
+- `/` - Home page
+  - Create new event form
+  - Recent events list (from localStorage)
+- `/join/[code]` - Join event with 6-character code
+  - Enter name to join
+  - Creates user record
+- `/event/[id]` - Event home page
+  - View items list
+  - Add new items
+  - Edit items
+  - No authentication required
+
+### Item Management
+
+- `/event/[id]/add` - Add item form
+  - Requires user in localStorage
+  - Redirects to join if no user
+- `/event/[id]/edit?itemId=[id]` - Edit item form
+  - Updates existing item details
 
 ## Development
 

@@ -6,24 +6,38 @@ vi.mock('../db', () => ({
   query: vi.fn()
 }));
 
+// Mock the users module
+vi.mock('./users', () => ({
+  upsertUser: vi.fn()
+}));
+
 import { query } from '../db';
+import { upsertUser } from './users';
 const mockQuery = vi.mocked(query);
+const mockUpsertUser = vi.mocked(upsertUser);
 
 describe('Events DB Functions', () => {
   beforeEach(() => {
     mockQuery.mockClear();
+    mockUpsertUser.mockClear();
   });
 
   describe('createEvent', () => {
-    it('should create event with generated codes', async () => {
-      const mockResult = {
+    it('should create event with generated codes and host user', async () => {
+      const mockEventResult = {
         rows: [{
           id: 'test-id',
           join_code: 'ABC123',
           host_token: 'test-token'
         }]
       };
-      mockQuery.mockResolvedValue(mockResult);
+      const mockHostUser = {
+        id: 'user-id',
+        name: 'Test Host'
+      };
+      
+      mockQuery.mockResolvedValue(mockEventResult);
+      mockUpsertUser.mockResolvedValue(mockHostUser);
 
       const params = {
         hostName: 'Test Host',
@@ -38,7 +52,14 @@ describe('Events DB Functions', () => {
         expect.stringContaining('INSERT INTO events'),
         expect.arrayContaining(['Test Event', 'beer', 'open', expect.any(String), 'Test Host', expect.any(String)])
       );
-      expect(result).toEqual(mockResult.rows[0]);
+      expect(mockUpsertUser).toHaveBeenCalledWith({
+        eventId: 'test-id',
+        name: 'Test Host'
+      });
+      expect(result).toEqual({
+        ...mockEventResult.rows[0],
+        host_user: mockHostUser
+      });
     });
   });
 

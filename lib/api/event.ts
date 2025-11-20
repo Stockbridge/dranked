@@ -86,3 +86,21 @@ export const getEventItems = async (eventId: string) => {
 
   return response.json();
 };
+
+
+/**
+ * Retrieves event details by ID.
+ * 
+ * @param eventId - UUID of the event
+ * @returns Promise resolving to event details
+ * @throws Error if API request fails
+ */
+export const getEventDetails = async (eventId: string) => {
+  const response = await fetch(`/api/event/${eventId}`);
+  
+  if (!response.ok) {
+    throw new Error('Failed to fetch event details');
+  }
+
+  return response.json();
+};
