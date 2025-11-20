@@ -7,7 +7,7 @@ export async function POST(
 ) {
   try {
     const { id } = await params;
-    const { name, producer, year, type, addedBy } = await request.json();
+    const { name, producer, year, type, addedByUserId, addedByName } = await request.json();
 
     const item = await addItemToEvent({
       eventId: id,
@@ -15,7 +15,8 @@ export async function POST(
       producer,
       year,
       type,
-      addedBy
+      addedByUserId,
+      addedByName
     });
 
     return NextResponse.json(item);

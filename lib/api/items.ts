@@ -10,8 +10,10 @@ export interface AddItemData {
   year?: number;
   /** Style/type like "IPA", "Pinot Noir" (optional) */
   type?: string;
-  /** Name of the person adding this item */
-  addedBy: string;
+  /** UUID of the user adding this item */
+  addedByUserId: string;
+  /** Name of the user adding this item */
+  addedByName: string;
 }
 
 /**

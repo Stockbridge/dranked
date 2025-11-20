@@ -20,6 +20,10 @@ export default function Home() {
 
     try {
       const event = await createEvent(formData);
+      
+      // Store host user in localStorage
+      localStorage.setItem(`event_${event.id}_user`, JSON.stringify(event.hostUser));
+      
       router.push(event.hostUrl);
     } catch (error) {
       console.error('Failed to create event:', error);

@@ -1,5 +1,6 @@
 import { query } from '../db';
 import crypto from 'crypto';
+import { upsertUser } from './users';
 
 /**
  * Parameters for creating a new tasting event.
@@ -17,13 +18,10 @@ export interface CreateEventParams {
 
 /**
  * Creates a new tasting event with auto-generated join code and host token.
+ * Also creates a user record for the host.
  * 
  * @param params - Event creation parameters
- * @param params.hostName - Name of the event host
- * @param params.eventName - Display name for the event
- * @param params.beverageType - Type of beverages being tasted
- * @param params.tastingStyle - Whether participants can see beverage details
- * @returns Promise resolving to event record with generated codes
+ * @returns Promise resolving to event record with generated codes and host user
  * @throws Database error if creation fails
  */
 export const createEvent = async (params: CreateEventParams) => {
@@ -37,7 +35,18 @@ export const createEvent = async (params: CreateEventParams) => {
     [params.eventName, params.beverageType, params.tastingStyle, joinCode, params.hostName, hostToken]
   );
 
-  return result.rows[0];
+  const event = result.rows[0];
+
+  // Create user for host
+  const hostUser = await upsertUser({
+    eventId: event.id,
+    name: params.hostName
+  });
+
+  return {
+    ...event,
+    host_user: hostUser
+  };
 };
 
 /**

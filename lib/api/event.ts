@@ -22,6 +22,11 @@ export interface EventResponse {
   joinCode: string;
   /** Secret token for host admin access */
   hostToken: string;
+  /** Host user object */
+  hostUser: {
+    id: string;
+    name: string;
+  };
   /** URL participants use to join the event */
   joinUrl: string;
   /** URL host uses to manage the event */

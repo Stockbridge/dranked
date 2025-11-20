@@ -16,6 +16,7 @@ export async function POST(request: NextRequest) {
       id: event.id,
       joinCode: event.join_code,
       hostToken: event.host_token,
+      hostUser: event.host_user,
       joinUrl: `/join/${event.join_code}`,
       hostUrl: `/event/${event.id}?token=${event.host_token}`
     });
