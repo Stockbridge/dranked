@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
-import { upsertUser, getUserById } from './users';
+import { addUserToEvent, getUserById } from './users';
 
 vi.mock('../db', () => ({
   query: vi.fn()
@@ -13,7 +13,7 @@ describe('Users DB Functions', () => {
     mockQuery.mockClear();
   });
 
-  describe('upsertUser', () => {
+  describe('addUserToEvent', () => {
     it('should create or update user', async () => {
       const mockResult = {
         rows: [{
@@ -29,7 +29,7 @@ describe('Users DB Functions', () => {
         name: 'Test User'
       };
 
-      const result = await upsertUser(params);
+      const result = await addUserToEvent(params);
 
       expect(mockQuery).toHaveBeenCalledWith(
         expect.stringContaining('INSERT INTO users'),

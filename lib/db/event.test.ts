@@ -8,18 +8,18 @@ vi.mock('../db', () => ({
 
 // Mock the users module
 vi.mock('./users', () => ({
-  upsertUser: vi.fn()
+  addUserToEvent: vi.fn()
 }));
 
 import { query } from '../db';
-import { upsertUser } from './users';
+import { addUserToEvent } from './users';
 const mockQuery = vi.mocked(query);
-const mockUpsertUser = vi.mocked(upsertUser);
+const mockAddUserToEvent = vi.mocked(addUserToEvent);
 
 describe('Events DB Functions', () => {
   beforeEach(() => {
     mockQuery.mockClear();
-    mockUpsertUser.mockClear();
+    mockAddUserToEvent.mockClear();
   });
 
   describe('createEvent', () => {
@@ -37,7 +37,7 @@ describe('Events DB Functions', () => {
       };
       
       mockQuery.mockResolvedValue(mockEventResult);
-      mockUpsertUser.mockResolvedValue(mockHostUser);
+      mockAddUserToEvent.mockResolvedValue(mockHostUser);
 
       const params = {
         hostName: 'Test Host',
@@ -52,7 +52,7 @@ describe('Events DB Functions', () => {
         expect.stringContaining('INSERT INTO events'),
         expect.arrayContaining(['Test Event', 'beer', 'open', expect.any(String), 'Test Host', expect.any(String)])
       );
-      expect(mockUpsertUser).toHaveBeenCalledWith({
+      expect(mockAddUserToEvent).toHaveBeenCalledWith({
         eventId: 'test-id',
         name: 'Test Host'
       });

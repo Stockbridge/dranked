@@ -25,11 +25,10 @@ export default function JoinForm({ event }: JoinFormProps) {
 
     setIsJoining(true);
     try {
-      const response = await fetch('/api/users', {
+      const response = await fetch(`/api/event/${event.id}/add-user`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          eventId: event.id,
           name: name.trim()
         })
       });

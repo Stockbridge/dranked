@@ -11,7 +11,7 @@ export interface CreateUserParams {
 }
 
 /**
- * Creates a new user or updates their join time if they already exist in the event.
+ * Adds a user to an event or updates their join time if they already exist.
  * Uses ON CONFLICT to handle duplicate name/event combinations.
  * 
  * @param params - User creation parameters
@@ -20,7 +20,7 @@ export interface CreateUserParams {
  * @returns Promise resolving to the created/updated user record
  * @throws Database error if event doesn't exist or constraint violations
  */
-export const upsertUser = async (params: CreateUserParams) => {
+export const addUserToEvent = async (params: CreateUserParams) => {
   const result = await query(
     `INSERT INTO users (event_id, name)
      VALUES ($1, $2)

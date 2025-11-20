@@ -1,6 +1,6 @@
 import { query } from '../db';
 import crypto from 'crypto';
-import { upsertUser } from './users';
+import { addUserToEvent } from './users';
 
 /**
  * Parameters for creating a new tasting event.
@@ -38,7 +38,7 @@ export const createEvent = async (params: CreateEventParams) => {
   const event = result.rows[0];
 
   // Create user for host
-  const hostUser = await upsertUser({
+  const hostUser = await addUserToEvent({
     eventId: event.id,
     name: params.hostName
   });
