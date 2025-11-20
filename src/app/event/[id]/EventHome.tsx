@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { getEventItems } from '../../../utils/api/event';
+import { getUserRatings, submitRating } from '../../../utils/api/ratings';
 import { getUserForEvent } from '../../../utils/user-storage';
 import type { User, EventSummary } from '../../../../types/models';
 
@@ -30,11 +31,10 @@ export default function EventHome({ event }: EventHomeProps) {
       setUser(userData);
       
       // Load user's ratings
-      fetch(`/api/event/${event.id}/user/${userData.id}/ratings`)
-        .then(res => res.json())
+      getUserRatings(event.id, userData.id)
         .then(userRatings => {
           const ratingsMap: Record<string, number> = {};
-          userRatings.forEach((rating: any) => {
+          userRatings.forEach(rating => {
             ratingsMap[rating.item_id] = rating.score;
           });
           setRatings(ratingsMap);
@@ -47,16 +47,7 @@ export default function EventHome({ event }: EventHomeProps) {
     if (!user) return;
 
     try {
-      await fetch(`/api/event/${event.id}/user/${user.id}/ratings`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          itemId,
-          score
-        })
-      });
-      
-      // Update local state
+      await submitRating(event.id, user.id, itemId, score);
       setRatings(prev => ({ ...prev, [itemId]: score }));
     } catch (error) {
       console.error('Failed to rate:', error);
