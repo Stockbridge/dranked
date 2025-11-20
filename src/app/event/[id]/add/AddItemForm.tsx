@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { addItem } from '../../../../../lib/api/items';
 import ItemForm from '../../../../components/ItemForm';
+import { getUserForEvent, type User } from '../../../../../lib/user-storage';
 
 interface Event {
   id: string;
@@ -18,16 +19,16 @@ interface AddItemFormProps {
 }
 
 export default function AddItemForm({ event }: AddItemFormProps) {
-  const [user, setUser] = useState<{ id: string; name: string } | null>(null);
+  const [user, setUser] = useState<User | null>(null);
   const router = useRouter();
 
   useEffect(() => {
-    const userJson = localStorage.getItem(`event_${event.id}_user`);
-    if (!userJson) {
+    const userData = getUserForEvent(event.id);
+    if (!userData) {
       router.push(`/join/${event.join_code}`);
       return;
     }
-    setUser(JSON.parse(userJson));
+    setUser(userData);
   }, [event.id, event.join_code, router]);
 
   const handleSubmit = async (formData: { name: string; producer: string; year: string; type: string }) => {

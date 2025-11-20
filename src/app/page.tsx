@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { createEvent } from '../../lib/api/event';
 import { getEventDetails } from '../../lib/api/event';
+import { setUserForEvent, getAllEventIds } from '../../lib/user-storage';
 
 interface RecentEvent {
   id: string;
@@ -24,20 +25,8 @@ export default function Home() {
   const router = useRouter();
 
   useEffect(() => {
-    // Load recent events from localStorage
     const loadRecentEvents = async () => {
-      const eventIds: string[] = [];
-      
-      // Find all event user keys in localStorage
-      for (let i = 0; i < localStorage.length; i++) {
-        const key = localStorage.key(i);
-        if (key?.startsWith('event_') && key.endsWith('_user')) {
-          const eventId = key.replace('event_', '').replace('_user', '');
-          eventIds.push(eventId);
-        }
-      }
-
-      // Fetch details for each event
+      const eventIds = getAllEventIds();
       const events = await Promise.all(
         eventIds.map(async (id) => {
           try {
@@ -47,7 +36,6 @@ export default function Home() {
           }
         })
       );
-
       setRecentEvents(events.filter(Boolean) as RecentEvent[]);
     };
 
@@ -60,10 +48,7 @@ export default function Home() {
 
     try {
       const event = await createEvent(formData);
-      
-      // Store host user in localStorage
-      localStorage.setItem(`event_${event.id}_user`, JSON.stringify(event.hostUser));
-      
+      setUserForEvent(event.id, event.hostUser);
       router.push(event.hostUrl);
     } catch (error) {
       console.error('Failed to create event:', error);

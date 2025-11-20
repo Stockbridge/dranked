@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { getEventItems } from '../../../../lib/api/event';
+import { getUserForEvent, type User } from '../../../../lib/user-storage';
 
 interface Event {
   id: string;
@@ -17,7 +18,7 @@ interface EventHomeProps {
 
 export default function EventHome({ event }: EventHomeProps) {
   const [items, setItems] = useState<any[]>([]);
-  const [user, setUser] = useState<{ id: string; name: string } | null>(null);
+  const [user, setUser] = useState<User | null>(null);
   const [ratings, setRatings] = useState<Record<string, number>>({});
 
   useEffect(() => {
@@ -31,10 +32,8 @@ export default function EventHome({ event }: EventHomeProps) {
     };
     loadItems();
 
-    // Load user from localStorage
-    const userJson = localStorage.getItem(`event_${event.id}_user`);
-    if (userJson) {
-      const userData = JSON.parse(userJson);
+    const userData = getUserForEvent(event.id);
+    if (userData) {
       setUser(userData);
       
       // Load user's ratings

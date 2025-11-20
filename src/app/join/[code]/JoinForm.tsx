@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { setUserForEvent } from '../../../../lib/user-storage';
 
 interface Event {
   id: string;
@@ -38,11 +39,7 @@ export default function JoinForm({ event }: JoinFormProps) {
       }
 
       const user = await response.json();
-      
-      // Store user info in localStorage
-      localStorage.setItem(`event_${event.id}_user`, JSON.stringify(user));
-      
-      // Redirect to event page (guest view - no token)
+      setUserForEvent(event.id, user);
       router.push(`/event/${event.id}`);
     } catch (error) {
       console.error('Failed to join:', error);
