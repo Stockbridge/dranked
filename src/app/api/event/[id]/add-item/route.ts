@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { addItemToEvent } from '../../../../../../lib/db/items';
+import { addItemToEvent } from '../../../../../utils/db/items';
 
 export async function POST(
   request: NextRequest,

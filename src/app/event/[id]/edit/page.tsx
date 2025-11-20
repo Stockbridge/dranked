@@ -1,7 +1,7 @@
-import { getEventById } from '../../../../../lib/db/event';
+import { getEventById } from '../../../../utils/db/event';
 import { notFound } from 'next/navigation';
 import EditItemForm from './EditItemForm';
-import { query } from '../../../../../lib/db';
+import { query } from '../../../../utils/db';
 
 interface PageProps {
   params: Promise<{ id: string }>;

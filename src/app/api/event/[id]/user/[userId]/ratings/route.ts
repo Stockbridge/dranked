@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { updateRating, getRatingsByEventAndUser } from '../../../../../../../../lib/db/ratings';
+import { updateRating, getRatingsByEventAndUser } from '../../../../../../../utils/db/ratings';
 
 export async function GET(
   request: NextRequest,

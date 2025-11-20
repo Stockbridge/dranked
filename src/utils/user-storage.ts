@@ -1,4 +1,4 @@
-import type { User } from '../types/models';
+import type { User } from '../../types/models';
 
 export type { User };
 

@@ -71,7 +71,7 @@ echo "DATABASE_URL=postgresql://username:password@localhost:5432/dranked" > .env
 4. Initialize the database schema:
 
 ```bash
-psql -d dranked -f lib/schema.sql
+psql -d dranked -f src/utils/schema.sql
 ```
 
 5. Start the development server:
@@ -125,7 +125,7 @@ See `lib/schema.sql` for complete schema definition.
   ├── /api/                 # API routes
   └── /event/[id]/          # Event pages
 
-/lib/                       # Business logic layer
+/src/utils/                 # Business logic layer
   ├── db.ts                # Database connection
   ├── schema.sql           # Database schema
   ├── /db/                 # Database operations

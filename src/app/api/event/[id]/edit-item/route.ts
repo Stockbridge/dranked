@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { updateItem } from '../../../../../../lib/db/items';
+import { updateItem } from '../../../../../utils/db/items';
 
 export async function PUT(
   request: NextRequest,

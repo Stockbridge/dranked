@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { setUserForEvent } from '../../../../lib/user-storage';
+import { setUserForEvent } from '../../../utils/user-storage';
 import type { EventSummary } from '../../../../types/models';
 
 interface JoinFormProps {

@@ -1,5 +1,5 @@
 import { query } from '../db';
-import type { ItemSummary } from '../../types/models';
+import type { ItemSummary } from '../../../types/models';
 
 /**
  * Parameters for adding a new beverage item to an event.

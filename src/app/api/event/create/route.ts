@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createEvent } from '../../../../../lib/db/event';
+import { createEvent } from '../../../../utils/db/event';
 
 export async function POST(request: NextRequest) {
   try {

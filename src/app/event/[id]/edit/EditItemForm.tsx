@@ -1,6 +1,6 @@
 'use client';
 
-import { updateItem } from '../../../../../lib/api/items';
+import { updateItem } from '../../../../utils/api/items';
 import ItemForm from '../../../../components/ItemForm';
 import type { EventSummary, ItemSummary } from '../../../../../types/models';
 

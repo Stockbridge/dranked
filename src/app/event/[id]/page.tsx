@@ -1,4 +1,4 @@
-import { getEventById } from '../../../../lib/db/event';
+import { getEventById } from '../../../utils/db/event';
 import { notFound } from 'next/navigation';
 import EventHome from './EventHome';
 

@@ -1,8 +1,8 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { getEventItems } from '../../../../lib/api/event';
-import { getUserForEvent } from '../../../../lib/user-storage';
+import { getEventItems } from '../../../utils/api/event';
+import { getUserForEvent } from '../../../utils/user-storage';
 import type { User, EventSummary } from '../../../../types/models';
 
 interface EventHomeProps {

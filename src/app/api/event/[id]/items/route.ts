@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getItemsByEventId } from '../../../../../../lib/db/items';
+import { getItemsByEventId } from '../../../../../utils/db/items';
 
 export interface AddItemAPIParams {
   params: Promise<{ id: string }>
