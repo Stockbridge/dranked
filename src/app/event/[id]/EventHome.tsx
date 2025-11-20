@@ -53,11 +53,19 @@ export default function EventHome({ event }: EventHomeProps) {
           </p>
         ) : (
           items.map((item) => (
-            <div key={item.id} className="p-2 border-b">
-              <div className="font-medium">{item.name}</div>
-              {item.producer && <div className="text-sm text-gray-600">{item.producer}</div>}
-              {item.type && <div className="text-sm text-gray-600">{item.type}</div>}
-              {item.year && <div className="text-sm text-gray-600">{item.year}</div>}
+            <div key={item.id} className="p-2 border-b flex justify-between items-start">
+              <div className="flex-1">
+                <div className="font-medium">{item.name}</div>
+                {item.producer && <div className="text-sm text-gray-600">{item.producer}</div>}
+                {item.type && <div className="text-sm text-gray-600">{item.type}</div>}
+                {item.year && <div className="text-sm text-gray-600">{item.year}</div>}
+              </div>
+              <a
+                href={`/event/${event.id}/edit?token=${token}&itemId=${item.id}`}
+                className="ml-2 text-blue-500 text-sm hover:underline"
+              >
+                Edit
+              </a>
             </div>
           ))
         )}

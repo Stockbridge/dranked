@@ -46,3 +46,41 @@ export const addItem = async (eventId: string, data: AddItemData) => {
 
   return response.json();
 };
+
+/**
+ * Data required to update an existing item.
+ */
+export interface UpdateItemData {
+  /** UUID of the item to update */
+  itemId: string;
+  /** Name/title of the beverage */
+  name: string;
+  /** Brewery, winery, or distillery name (optional) */
+  producer?: string;
+  /** Vintage or production year (optional) */
+  year?: number;
+  /** Style/type like "IPA", "Pinot Noir" (optional) */
+  type?: string;
+}
+
+/**
+ * Updates an existing item.
+ * 
+ * @param eventId - UUID of the event
+ * @param data - Item data to update
+ * @returns Promise resolving to the updated item record
+ * @throws Error if API request fails
+ */
+export const updateItem = async (eventId: string, data: UpdateItemData) => {
+  const response = await fetch(`/api/event/${eventId}/edit-item`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data)
+  });
+
+  if (!response.ok) {
+    throw new Error('Failed to update item');
+  }
+
+  return response.json();
+};

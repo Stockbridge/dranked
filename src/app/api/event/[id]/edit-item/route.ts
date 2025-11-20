@@ -1,0 +1,28 @@
+import { NextRequest, NextResponse } from 'next/server';
+import { updateItem } from '../../../../../../lib/db/items';
+
+export async function PUT(
+  request: NextRequest,
+  { params }: { params: Promise<{ id: string }> }
+) {
+  try {
+    const { itemId, name, producer, year, type } = await request.json();
+
+    const item = await updateItem({
+      itemId,
+      name,
+      producer,
+      year,
+      type
+    });
+
+    return NextResponse.json(item);
+
+  } catch (error) {
+    console.error('Error updating item:', error);
+    return NextResponse.json(
+      { error: 'Failed to update item' },
+      { status: 500 }
+    );
+  }
+}

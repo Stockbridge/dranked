@@ -1,27 +1,35 @@
 'use client';
 
-import { addItem } from '../../../../../lib/api/items';
+import { updateItem } from '../../../../../lib/api/items';
 import ItemForm from '../../../../components/ItemForm';
 
 interface Event {
   id: string;
   name: string;
   beverage_type: string;
-  host_name: string;
 }
 
-interface AddItemFormProps {
+interface Item {
+  id: string;
+  name: string;
+  producer?: string;
+  year?: number;
+  type?: string;
+}
+
+interface EditItemFormProps {
   event: Event;
+  item: Item;
 }
 
-export default function AddItemForm({ event }: AddItemFormProps) {
+export default function EditItemForm({ event, item }: EditItemFormProps) {
   const handleSubmit = async (formData: { name: string; producer: string; year: string; type: string }) => {
-    await addItem(event.id, {
+    await updateItem(event.id, {
+      itemId: item.id,
       name: formData.name.trim(),
       producer: formData.producer.trim() || undefined,
       year: formData.year ? parseInt(formData.year) : undefined,
-      type: formData.type.trim() || undefined,
-      addedBy: event.host_name
+      type: formData.type.trim() || undefined
     });
   };
 
@@ -30,9 +38,15 @@ export default function AddItemForm({ event }: AddItemFormProps) {
       eventId={event.id}
       eventName={event.name}
       beverageType={event.beverage_type}
+      initialData={{
+        name: item.name,
+        producer: item.producer || '',
+        year: item.year?.toString() || '',
+        type: item.type || ''
+      }}
       onSubmit={handleSubmit}
-      submitLabel="Add Item"
-      title="Add"
+      submitLabel="Update Item"
+      title="Edit"
     />
   );
 }
