@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { addItemToEvent } from '../../../../../utils/db/items';
 import { validate, ValidationError } from '../../../../../utils/validation';
+import { verifyUserInEvent, AuthError } from '../../../../../utils/auth';
 
 export async function POST(
   request: NextRequest,
@@ -19,6 +20,8 @@ export async function POST(
     const addedByUserId = validate.uuid(body.addedByUserId, 'addedByUserId');
     const addedByName = validate.string(body.addedByName, 'addedByName', 1, 100);
 
+    await verifyUserInEvent(addedByUserId, id);
+
     const item = await addItemToEvent({
       eventId: id,
       name,
@@ -34,6 +37,9 @@ export async function POST(
   } catch (error) {
     if (error instanceof ValidationError) {
       return NextResponse.json({ error: error.message }, { status: 400 });
+    }
+    if (error instanceof AuthError) {
+      return NextResponse.json({ error: error.message }, { status: 403 });
     }
     console.error('Error adding item:', error);
     return NextResponse.json({ error: 'Failed to add item' }, { status: 500 });

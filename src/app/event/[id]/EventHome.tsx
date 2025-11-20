@@ -15,6 +15,11 @@ export default function EventHome({ event }: EventHomeProps) {
   const [user] = useState<User | null>(() => getUserForEvent(event.id));
   const [ratings, setRatings] = useState<Record<string, number>>({});
 
+  const canEditItem = (item: Item) => {
+    if (!user) return false;
+    return user.id === item.added_by_user_id || user.name === event.host_name;
+  };
+
   useEffect(() => {
     const loadItems = async () => {
       try {
@@ -78,12 +83,14 @@ export default function EventHome({ event }: EventHomeProps) {
                   {item.type && <div className="text-sm text-gray-600">{item.type}</div>}
                   {item.year && <div className="text-sm text-gray-600">{item.year}</div>}
                 </div>
-                <a
-                  href={`/event/${event.id}/edit?itemId=${item.id}`}
-                  className="ml-2 text-blue-500 text-sm hover:underline"
-                >
-                  Edit
-                </a>
+                {canEditItem(item) && (
+                  <a
+                    href={`/event/${event.id}/edit?itemId=${item.id}`}
+                    className="ml-2 text-blue-500 text-sm hover:underline"
+                  >
+                    Edit
+                  </a>
+                )}
               </div>
               
               {user && (
