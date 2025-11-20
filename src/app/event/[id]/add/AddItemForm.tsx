@@ -12,17 +12,14 @@ interface AddItemFormProps {
 }
 
 export default function AddItemForm({ event }: AddItemFormProps) {
-  const [user, setUser] = useState<User | null>(null);
+  const [user] = useState<User | null>(() => getUserForEvent(event.id));
   const router = useRouter();
 
   useEffect(() => {
-    const userData = getUserForEvent(event.id);
-    if (!userData) {
+    if (!user) {
       router.push(`/join/${event.join_code}`);
-      return;
     }
-    setUser(userData);
-  }, [event.id, event.join_code, router]);
+  }, [user, event.join_code, router]);
 
   const handleSubmit = async (formData: { name: string; producer: string; year: string; type: string }) => {
     if (!user) return;

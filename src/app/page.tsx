@@ -14,11 +14,16 @@ interface RecentEvent {
 }
 
 export default function Home() {
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<{
+    hostName: string;
+    eventName: string;
+    beverageType: 'beer' | 'wine' | 'whiskey';
+    tastingStyle: 'open' | 'blind';
+  }>({
     hostName: '',
     eventName: '',
-    beverageType: 'beer' as const,
-    tastingStyle: 'open' as const
+    beverageType: 'beer',
+    tastingStyle: 'open'
   });
   const [isLoading, setIsLoading] = useState(false);
   const [recentEvents, setRecentEvents] = useState<RecentEvent[]>([]);
@@ -82,7 +87,7 @@ export default function Home() {
 
         <select
           value={formData.beverageType}
-          onChange={(e) => setFormData(prev => ({ ...prev, beverageType: e.target.value as any }))}
+          onChange={(e) => setFormData(prev => ({ ...prev, beverageType: e.target.value as 'beer' | 'wine' | 'whiskey' }))}
           className="w-full p-2 border rounded"
         >
           <option value="beer">Beer</option>

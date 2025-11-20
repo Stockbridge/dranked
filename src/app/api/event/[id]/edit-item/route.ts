@@ -1,10 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { updateItem } from '../../../../../utils/db/items';
 
-export async function PUT(
-  request: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
-) {
+export async function PUT(request: NextRequest) {
   try {
     const { id, name, producer, year, type } = await request.json();
 

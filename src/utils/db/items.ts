@@ -50,8 +50,7 @@ export const getItemsByEventId = async (eventId: string): Promise<ItemRow[]> => 
 /**
  * Parameters for updating an existing item.
  */
-export interface UpdateItemParams extends ItemSummary {
-}
+export type UpdateItemParams = ItemSummary;
 
 /**
  * Updates an existing item.

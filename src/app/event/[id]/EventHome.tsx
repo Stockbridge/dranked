@@ -12,7 +12,7 @@ interface EventHomeProps {
 
 export default function EventHome({ event }: EventHomeProps) {
   const [items, setItems] = useState<Item[]>([]);
-  const [user, setUser] = useState<User | null>(null);
+  const [user] = useState<User | null>(() => getUserForEvent(event.id));
   const [ratings, setRatings] = useState<Record<string, number>>({});
 
   useEffect(() => {
@@ -26,12 +26,8 @@ export default function EventHome({ event }: EventHomeProps) {
     };
     loadItems();
 
-    const userData = getUserForEvent(event.id);
-    if (userData) {
-      setUser(userData);
-      
-      // Load user's ratings
-      getUserRatings(event.id, userData.id)
+    if (user) {
+      getUserRatings(event.id, user.id)
         .then(userRatings => {
           const ratingsMap: Record<string, number> = {};
           userRatings.forEach(rating => {
@@ -41,7 +37,7 @@ export default function EventHome({ event }: EventHomeProps) {
         })
         .catch(err => console.error('Failed to load ratings:', err));
     }
-  }, [event.id]);
+  }, [event.id, user]);
 
   const handleRate = async (itemId: string, score: number) => {
     if (!user) return;
