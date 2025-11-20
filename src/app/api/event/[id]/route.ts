@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getEventById } from '../../../../utils/db/event';
+import { validate, ValidationError } from '../../../../utils/validation';
 
 export async function GET(
   request: NextRequest,
@@ -7,13 +8,12 @@ export async function GET(
 ) {
   try {
     const { id } = await params;
+    validate.uuid(id, 'eventId');
+
     const event = await getEventById(id);
 
     if (!event) {
-      return NextResponse.json(
-        { error: 'Event not found' },
-        { status: 404 }
-      );
+      return NextResponse.json({ error: 'Event not found' }, { status: 404 });
     }
 
     return NextResponse.json({
@@ -25,10 +25,10 @@ export async function GET(
     });
 
   } catch (error) {
+    if (error instanceof ValidationError) {
+      return NextResponse.json({ error: error.message }, { status: 400 });
+    }
     console.error('Error fetching event:', error);
-    return NextResponse.json(
-      { error: 'Failed to fetch event' },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: 'Failed to fetch event' }, { status: 500 });
   }
 }

@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { updateRating, getRatingsByEventAndUser } from '../../../../../../../utils/db/ratings';
+import { validate, ValidationError } from '../../../../../../../utils/validation';
 
 export async function GET(
   request: NextRequest,
@@ -7,15 +8,18 @@ export async function GET(
 ) {
   try {
     const { id, userId } = await params;
+    validate.uuid(id, 'eventId');
+    validate.uuid(userId, 'userId');
+
     const ratings = await getRatingsByEventAndUser(id, userId);
     return NextResponse.json(ratings);
 
   } catch (error) {
+    if (error instanceof ValidationError) {
+      return NextResponse.json({ error: error.message }, { status: 400 });
+    }
     console.error('Error fetching ratings:', error);
-    return NextResponse.json(
-      { error: 'Failed to fetch ratings' },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: 'Failed to fetch ratings' }, { status: 500 });
   }
 }
 
@@ -25,7 +29,12 @@ export async function POST(
 ) {
   try {
     const { id, userId } = await params;
-    const { itemId, score } = await request.json();
+    validate.uuid(id, 'eventId');
+    validate.uuid(userId, 'userId');
+
+    const body = await request.json();
+    const itemId = validate.uuid(body.itemId, 'itemId');
+    const score = validate.number(body.score, 'score', 1, 10);
 
     const rating = await updateRating({
       eventId: id,
@@ -37,10 +46,10 @@ export async function POST(
     return NextResponse.json(rating);
 
   } catch (error) {
+    if (error instanceof ValidationError) {
+      return NextResponse.json({ error: error.message }, { status: 400 });
+    }
     console.error('Error saving rating:', error);
-    return NextResponse.json(
-      { error: 'Failed to save rating' },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: 'Failed to save rating' }, { status: 500 });
   }
 }
