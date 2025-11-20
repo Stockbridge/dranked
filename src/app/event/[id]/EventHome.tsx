@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { useSearchParams } from 'next/navigation';
 import { getEventItems } from '../../../../lib/api/event';
 
 interface Event {
@@ -18,8 +17,6 @@ interface EventHomeProps {
 
 export default function EventHome({ event }: EventHomeProps) {
   const [items, setItems] = useState<any[]>([]);
-  const searchParams = useSearchParams();
-  const token = searchParams.get('token');
 
   useEffect(() => {
     const loadItems = async () => {
@@ -39,7 +36,7 @@ export default function EventHome({ event }: EventHomeProps) {
       <p className="mb-4">Join code: <strong>{event.join_code}</strong></p>
       
       <a
-        href={`/event/${event.id}/add?token=${token}`}
+        href={`/event/${event.id}/add`}
         className="block w-full bg-green-500 text-white p-2 rounded text-center mb-4"
       >
         Add New Item
@@ -61,7 +58,7 @@ export default function EventHome({ event }: EventHomeProps) {
                 {item.year && <div className="text-sm text-gray-600">{item.year}</div>}
               </div>
               <a
-                href={`/event/${event.id}/edit?token=${token}&itemId=${item.id}`}
+                href={`/event/${event.id}/edit?itemId=${item.id}`}
                 className="ml-2 text-blue-500 text-sm hover:underline"
               >
                 Edit

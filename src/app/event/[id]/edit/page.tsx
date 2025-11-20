@@ -5,18 +5,18 @@ import { query } from '../../../../../lib/db';
 
 interface PageProps {
   params: Promise<{ id: string }>;
-  searchParams: Promise<{ token?: string; itemId?: string }>;
+  searchParams: Promise<{ itemId?: string }>;
 }
 
 export default async function EditItemPage({ params, searchParams }: PageProps) {
   const { id } = await params;
-  const { token, itemId } = await searchParams;
+  const { itemId } = await searchParams;
   
-  if (!token || !itemId) {
+  if (!itemId) {
     notFound();
   }
 
-  const event = await getEventById(id, token);
+  const event = await getEventById(id);
   
   if (!event) {
     notFound();

@@ -4,14 +4,12 @@ import EventHome from './EventHome';
 
 interface PageProps {
   params: Promise<{ id: string }>;
-  searchParams: Promise<{ token?: string }>;
 }
 
-export default async function EventPage({ params, searchParams }: PageProps) {
+export default async function EventPage({ params }: PageProps) {
   const { id } = await params;
-  const { token } = await searchParams;
 
-  const event = await getEventById(id, token);
+  const event = await getEventById(id);
   
   if (!event) {
     notFound();

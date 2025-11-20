@@ -4,18 +4,12 @@ import AddItemForm from './AddItemForm';
 
 interface PageProps {
   params: Promise<{ id: string }>;
-  searchParams: Promise<{ token?: string }>;
 }
 
-export default async function AddItemPage({ params, searchParams }: PageProps) {
+export default async function AddItemPage({ params }: PageProps) {
   const { id } = await params;
-  const { token } = await searchParams;
-  
-  if (!token) {
-    notFound();
-  }
 
-  const event = await getEventById(id, token);
+  const event = await getEventById(id);
   
   if (!event) {
     notFound();

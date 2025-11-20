@@ -42,8 +42,7 @@ export default function ItemForm({
     setIsSubmitting(true);
     try {
       await onSubmit(formData);
-      const token = new URLSearchParams(window.location.search).get('token');
-      router.push(`/event/${eventId}?token=${token}`);
+      router.push(`/event/${eventId}`);
     } catch (error) {
       console.error('Failed to submit:', error);
     } finally {
