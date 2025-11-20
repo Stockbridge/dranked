@@ -19,14 +19,10 @@ export interface CreateRatingParams {
  * Uses ON CONFLICT to allow users to change their ratings.
  * 
  * @param params - Rating parameters
- * @param params.eventId - UUID of the event
- * @param params.itemId - UUID of the item being rated
- * @param params.userId - UUID of the user submitting the rating
- * @param params.score - Rating score (1-10 scale)
  * @returns Promise resolving to the created/updated rating record
  * @throws Database error if constraints violated (invalid IDs, score out of range)
  */
-export const upsertRating = async (params: CreateRatingParams) => {
+export const updateRating = async (params: CreateRatingParams) => {
   const result = await query(
     `INSERT INTO ratings (event_id, item_id, user_id, score)
      VALUES ($1, $2, $3, $4)

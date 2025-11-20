@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
-import { upsertRating, getRatingsByEventAndUser } from './ratings';
+import { updateRating, getRatingsByEventAndUser } from './ratings';
 
 vi.mock('../db', () => ({
   query: vi.fn()
@@ -13,7 +13,7 @@ describe('Ratings DB Functions', () => {
     mockQuery.mockClear();
   });
 
-  describe('upsertRating', () => {
+  describe('updateRating', () => {
     it('should create or update rating', async () => {
       const mockResult = {
         rows: [{
@@ -33,7 +33,7 @@ describe('Ratings DB Functions', () => {
         score: 8
       };
 
-      const result = await upsertRating(params);
+      const result = await updateRating(params);
 
       expect(mockQuery).toHaveBeenCalledWith(
         expect.stringContaining('INSERT INTO ratings'),
