@@ -10,10 +10,6 @@ interface PageProps {
 export default async function EventPage({ params, searchParams }: PageProps) {
   const { id } = await params;
   const { token } = await searchParams;
-  
-  if (!token) {
-    notFound();
-  }
 
   const event = await getEventById(id, token);
   
