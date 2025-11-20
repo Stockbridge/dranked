@@ -16,8 +16,11 @@ CREATE TABLE IF NOT EXISTS items (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   event_id UUID NOT NULL REFERENCES events(id) ON DELETE CASCADE,
   name VARCHAR(255) NOT NULL,
+  producer VARCHAR(255),
+  year INTEGER,
   type VARCHAR(100),
-  added_by VARCHAR(255) NOT NULL,
+  added_by_user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+  added_by_name VARCHAR(255) NOT NULL,
   created_at TIMESTAMP DEFAULT NOW()
 );
 

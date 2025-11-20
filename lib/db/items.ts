@@ -20,29 +20,25 @@ export interface ItemDisplayFields {
 export interface CreateItemParams extends ItemDisplayFields {
   /** UUID of the event to add item to */
   eventId: string;
-  /** Name of the person who added this item */
-  addedBy: string;
+  /** UUID of the user adding this item */
+  addedByUserId: string;
+  /** Name of the user adding this item */
+  addedByName: string;
 }
 
 /**
  * Adds a new beverage item to an event.
  * 
  * @param params - Item creation parameters
- * @param params.eventId - UUID of the event to add item to
- * @param params.name - Name/title of the beverage (required)
- * @param params.producer - Brewery, winery, or distillery name (optional)
- * @param params.year - Vintage or production year (optional)
- * @param params.type - Style/type like "IPA", "Pinot Noir" (optional)
- * @param params.addedBy - Name of the person who added this item
  * @returns Promise resolving to the created item record
  * @throws Database error if event doesn't exist or constraints violated
  */
 export const addItemToEvent = async (params: CreateItemParams) => {
   const result = await query(
-    `INSERT INTO items (event_id, name, producer, year, type, added_by)
-     VALUES ($1, $2, $3, $4, $5, $6)
+    `INSERT INTO items (event_id, name, producer, year, type, added_by_user_id, added_by_name)
+     VALUES ($1, $2, $3, $4, $5, $6, $7)
      RETURNING *`,
-    [params.eventId, params.name, params.producer, params.year, params.type, params.addedBy]
+    [params.eventId, params.name, params.producer, params.year, params.type, params.addedByUserId, params.addedByName]
   );
 
   return result.rows[0];

@@ -32,14 +32,15 @@ describe('Items DB Functions', () => {
         producer: 'Test Brewery',
         year: 2023,
         type: 'IPA',
-        addedBy: 'Test User'
+        addedByUserId: 'user-id',
+        addedByName: 'Test User'
       };
 
       const result = await addItemToEvent(params);
 
       expect(mockQuery).toHaveBeenCalledWith(
         expect.stringContaining('INSERT INTO items'),
-        ['event-id', 'Test Beer', 'Test Brewery', 2023, 'IPA', 'Test User']
+        ['event-id', 'Test Beer', 'Test Brewery', 2023, 'IPA', 'user-id', 'Test User']
       );
       expect(result).toEqual(mockResult.rows[0]);
     });
