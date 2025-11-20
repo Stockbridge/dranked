@@ -3,16 +3,10 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { setUserForEvent } from '../../../../lib/user-storage';
-
-interface Event {
-  id: string;
-  name: string;
-  beverage_type: string;
-  host_name: string;
-}
+import type { EventSummary } from '../../../../types/models';
 
 interface JoinFormProps {
-  event: Event;
+  event: EventSummary;
 }
 
 export default function JoinForm({ event }: JoinFormProps) {

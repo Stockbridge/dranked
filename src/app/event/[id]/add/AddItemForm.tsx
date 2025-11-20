@@ -4,18 +4,11 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { addItem } from '../../../../../lib/api/items';
 import ItemForm from '../../../../components/ItemForm';
-import { getUserForEvent, type User } from '../../../../../lib/user-storage';
-
-interface Event {
-  id: string;
-  name: string;
-  beverage_type: string;
-  host_name: string;
-  join_code: string;
-}
+import { getUserForEvent } from '../../../../../lib/user-storage';
+import type { User, EventSummary } from '../../../../../types/models';
 
 interface AddItemFormProps {
-  event: Event;
+  event: EventSummary;
 }
 
 export default function AddItemForm({ event }: AddItemFormProps) {

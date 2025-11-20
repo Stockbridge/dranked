@@ -1,7 +1,6 @@
-export interface User {
-  id: string;
-  name: string;
-}
+import type { User } from '../types/models';
+
+export type { User };
 
 export function getUserForEvent(eventId: string): User | null {
   if (typeof window === 'undefined') return null;

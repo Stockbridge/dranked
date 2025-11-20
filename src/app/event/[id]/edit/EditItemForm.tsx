@@ -2,30 +2,17 @@
 
 import { updateItem } from '../../../../../lib/api/items';
 import ItemForm from '../../../../components/ItemForm';
-
-interface Event {
-  id: string;
-  name: string;
-  beverage_type: string;
-}
-
-interface Item {
-  id: string;
-  name: string;
-  producer?: string;
-  year?: number;
-  type?: string;
-}
+import type { EventSummary, ItemSummary } from '../../../../../types/models';
 
 interface EditItemFormProps {
-  event: Event;
-  item: Item;
+  event: EventSummary;
+  item: ItemSummary;
 }
 
 export default function EditItemForm({ event, item }: EditItemFormProps) {
   const handleSubmit = async (formData: { name: string; producer: string; year: string; type: string }) => {
     await updateItem(event.id, {
-      itemId: item.id,
+      id: item.id,
       name: formData.name.trim(),
       producer: formData.producer.trim() || undefined,
       year: formData.year ? parseInt(formData.year) : undefined,

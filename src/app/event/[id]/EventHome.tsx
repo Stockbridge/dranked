@@ -2,18 +2,11 @@
 
 import { useState, useEffect } from 'react';
 import { getEventItems } from '../../../../lib/api/event';
-import { getUserForEvent, type User } from '../../../../lib/user-storage';
-
-interface Event {
-  id: string;
-  name: string;
-  beverage_type: string;
-  join_code: string;
-  host_name: string;
-}
+import { getUserForEvent } from '../../../../lib/user-storage';
+import type { User, EventSummary } from '../../../../types/models';
 
 interface EventHomeProps {
-  event: Event;
+  event: EventSummary;
 }
 
 export default function EventHome({ event }: EventHomeProps) {

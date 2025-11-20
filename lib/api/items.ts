@@ -54,7 +54,7 @@ export const addItem = async (eventId: string, data: AddItemData) => {
  */
 export interface UpdateItemData {
   /** UUID of the item to update */
-  itemId: string;
+  id: string;
   /** Name/title of the beverage */
   name: string;
   /** Brewery, winery, or distillery name (optional) */

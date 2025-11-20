@@ -1,23 +1,10 @@
 import { query } from '../db';
-
-/**
- * Core item display fields shared across create/update operations.
- */
-export interface ItemDisplayFields {
-  /** Name/title of the beverage (required) */
-  name: string;
-  /** Brewery, winery, or distillery name (optional) */
-  producer?: string;
-  /** Vintage or production year (optional) */
-  year?: number;
-  /** Style/type like "IPA", "Pinot Noir" (optional) */
-  type?: string;
-}
+import type { ItemSummary } from '../../types/models';
 
 /**
  * Parameters for adding a new beverage item to an event.
  */
-export interface CreateItemParams extends ItemDisplayFields {
+export interface CreateItemParams extends Omit<ItemSummary, 'id'> {
   /** UUID of the event to add item to */
   eventId: string;
   /** UUID of the user adding this item */
@@ -62,9 +49,7 @@ export const getItemsByEventId = async (eventId: string) => {
 /**
  * Parameters for updating an existing item.
  */
-export interface UpdateItemParams extends ItemDisplayFields {
-  /** UUID of the item to update */
-  itemId: string;
+export interface UpdateItemParams extends ItemSummary {
 }
 
 /**
@@ -80,7 +65,7 @@ export const updateItem = async (params: UpdateItemParams) => {
      SET name = $1, producer = $2, year = $3, type = $4
      WHERE id = $5
      RETURNING *`,
-    [params.name, params.producer, params.year, params.type, params.itemId]
+    [params.name, params.producer, params.year, params.type, params.id]
   );
 
   return result.rows[0];

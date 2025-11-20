@@ -6,10 +6,10 @@ export async function PUT(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const { itemId, name, producer, year, type } = await request.json();
+    const { id, name, producer, year, type } = await request.json();
 
     const item = await updateItem({
-      itemId,
+      id,
       name,
       producer,
       year,
