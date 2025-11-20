@@ -1,3 +1,5 @@
+import type { Item } from '../../../types/models';
+
 /**
  * Data required to create a new tasting event.
  */

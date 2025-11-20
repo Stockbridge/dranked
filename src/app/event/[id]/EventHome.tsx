@@ -4,14 +4,14 @@ import { useState, useEffect } from 'react';
 import { getEventItems } from '../../../utils/api/event';
 import { getUserRatings, submitRating } from '../../../utils/api/ratings';
 import { getUserForEvent } from '../../../utils/user-storage';
-import type { User, EventSummary } from '../../../../types/models';
+import type { User, EventSummary, Item } from '../../../../types/models';
 
 interface EventHomeProps {
   event: EventSummary;
 }
 
 export default function EventHome({ event }: EventHomeProps) {
-  const [items, setItems] = useState<any[]>([]);
+  const [items, setItems] = useState<Item[]>([]);
   const [user, setUser] = useState<User | null>(null);
   const [ratings, setRatings] = useState<Record<string, number>>({});
 
