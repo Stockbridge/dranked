@@ -2,9 +2,9 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { updateItem } from '../../../../utils/api/items';
-import ItemForm from '../../../../components/ItemForm';
-import { getUserForEvent } from '../../../../utils/user-storage';
+import { updateItem } from '@/utils/api/items';
+import ItemForm from '@/components/ItemForm';
+import { getUserForEvent } from '@/utils/user-storage';
 import type { EventSummary, ItemSummary, User } from '../../../../../types/models';
 
 interface EditItemFormProps {

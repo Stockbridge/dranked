@@ -1,9 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { addItemToEvent } from '../../../../../utils/db/items';
-import { validate } from '../../../../../utils/validation';
-import { verifyUserInEvent } from '../../../../../utils/auth';
+import { addItemToEvent } from '@/utils/db/items';
+import { validate } from '@/utils/validation';
+import { verifyUserInEvent } from '@/utils/auth';
 
-import { ValidationError, AuthError } from '../../../../../utils/errors';
+import { ValidationError, AuthError } from '@/utils/errors';
 
 export async function POST(
   request: NextRequest,

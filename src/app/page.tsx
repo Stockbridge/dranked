@@ -2,9 +2,9 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { createEvent } from '../utils/api/event';
-import { getEventDetails } from '../utils/api/event';
-import { setUserForEvent, getAllEventIds } from '../utils/user-storage';
+import { createEvent } from '@/utils/api/event';
+import { getEventDetails } from '@/utils/api/event';
+import { setUserForEvent, getAllEventIds } from '@/utils/user-storage';
 
 interface RecentEvent {
   id: string;

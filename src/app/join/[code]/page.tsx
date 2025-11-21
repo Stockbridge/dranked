@@ -1,4 +1,4 @@
-import { getEventByJoinCode } from '../../../utils/db/event';
+import { getEventByJoinCode } from '@/utils/db/event';
 import { notFound } from 'next/navigation';
 import JoinForm from './JoinForm';
 
