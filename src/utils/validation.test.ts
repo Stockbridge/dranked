@@ -1,5 +1,6 @@
 import { describe, it, expect } from 'vitest';
-import { validate, ValidationError } from './validation';
+import { validate } from './validation';
+import { ValidationError } from './errors';
 
 describe('validate.uuid', () => {
   it('accepts valid UUIDs', () => {

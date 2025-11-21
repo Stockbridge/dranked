@@ -1,11 +1,5 @@
 import { getUserById } from './db/users';
-
-export class AuthError extends Error {
-  constructor(message: string) {
-    super(message);
-    this.name = 'AuthError';
-  }
-}
+import { AuthError } from './errors';
 
 /**
  * Verifies that a user exists and belongs to the specified event.

@@ -1,12 +1,6 @@
 import { query } from '../db';
 import { getUserById } from './users';
-
-export class AuthError extends Error {
-  constructor(message: string) {
-    super(message);
-    this.name = 'AuthError';
-  }
-}
+import { AuthError } from '../errors';
 
 /**
  * Verifies that a user is either the host or the person who added the item.

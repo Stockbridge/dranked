@@ -1,7 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { updateRating, getRatingsByEventAndUser } from '../../../../../../../utils/db/ratings';
-import { validate, ValidationError } from '../../../../../../../utils/validation';
-import { verifyUserInEvent, AuthError } from '../../../../../../../utils/auth';
+import { validate } from '../../../../../../../utils/validation';
+import { verifyUserInEvent } from '../../../../../../../utils/auth';
+import { ValidationError, AuthError } from '../../../../../../../utils/errors';
 
 export async function GET(
   request: NextRequest,

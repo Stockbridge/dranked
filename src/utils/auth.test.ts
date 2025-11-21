@@ -1,5 +1,6 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { verifyUserInEvent, AuthError } from './auth';
+import { verifyUserInEvent } from './auth';
+import { AuthError } from './errors';
 import * as users from './db/users';
 
 vi.mock('./db/users');

@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { addUserToEvent } from '../../../../../utils/db/users';
-import { validate, ValidationError } from '../../../../../utils/validation';
+import { validate } from '../../../../../utils/validation';
+import { ValidationError } from '../../../../../utils/errors';
 
 export async function POST(
   request: NextRequest,

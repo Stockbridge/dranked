@@ -1,7 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { updateItem } from '../../../../../utils/db/items';
-import { validate, ValidationError } from '../../../../../utils/validation';
-import { verifyCanEditItem, AuthError } from '../../../../../utils/db/auth';
+import { validate } from '../../../../../utils/validation';
+import { verifyCanEditItem } from '../../../../../utils/db/auth';
+import { ValidationError, AuthError } from '../../../../../utils/errors';
 
 export async function PUT(
   request: NextRequest,

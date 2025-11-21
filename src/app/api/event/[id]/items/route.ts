@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getItemsByEventId } from '../../../../../utils/db/items';
-import { validate, ValidationError } from '../../../../../utils/validation';
+import { validate } from '../../../../../utils/validation';
+import { ValidationError } from '../../../../../utils/errors';
 
 export interface AddItemAPIParams {
   params: Promise<{ id: string }>
