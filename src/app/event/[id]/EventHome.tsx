@@ -1,18 +1,17 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { getEventItems } from '@/utils/api/event';
 import { getUserRatings, submitRating } from '@/utils/api/ratings';
 import { getUserForEvent } from '@/utils/user-storage';
 import type { User, Event, Item } from '../../../../types/data';
 
 interface EventHomeProps {
   event: Event;
+  items: Item[];
 }
 
-export default function EventHome({ event }: EventHomeProps) {
-  const [items, setItems] = useState<Item[]>([]);
-  const [user] = useState<User | null>(() => getUserForEvent(event.id));
+export default function EventHome({ event, items }: EventHomeProps) {
+  const [user, setUser] = useState<User | null>(null);
   const [ratings, setRatings] = useState<Record<string, number>>({});
 
   const canEditItem = (item: Item) => {
@@ -21,16 +20,10 @@ export default function EventHome({ event }: EventHomeProps) {
   };
 
   useEffect(() => {
-    const loadItems = async () => {
-      try {
-        const existingItems = await getEventItems(event.id);
-        setItems(existingItems);
-      } catch (error) {
-        console.error('Failed to load items:', error);
-      }
-    };
-    loadItems();
+    setUser(getUserForEvent(event.id))
+  }, [])
 
+  useEffect(() => {
     if (user) {
       getUserRatings(event.id, user.id)
         .then(userRatings => {
@@ -42,7 +35,7 @@ export default function EventHome({ event }: EventHomeProps) {
         })
         .catch(err => console.error('Failed to load ratings:', err));
     }
-  }, [event.id, user]);
+  }, [user]);
 
   const handleRate = async (itemId: string, score: number) => {
     if (!user) return;
@@ -92,24 +85,21 @@ export default function EventHome({ event }: EventHomeProps) {
                   </a>
                 )}
               </div>
-              
-              {user && (
-                <div className="flex gap-1 mt-2">
-                  {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((score) => (
-                    <button
-                      key={score}
-                      onClick={() => handleRate(item.id, score)}
-                      className={`flex-1 p-1 text-xs border rounded ${
-                        ratings[item.id] === score 
-                          ? 'bg-blue-500 text-white' 
-                          : 'hover:bg-blue-500 hover:text-white'
-                      }`}
-                    >
-                      {score}
-                    </button>
-                  ))}
-                </div>
-              )}
+              <div className="flex gap-1 mt-2">
+                {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((score) => (
+                  <button
+                    key={score}
+                    onClick={() => handleRate(item.id, score)}
+                    className={`flex-1 p-1 text-xs border rounded ${
+                      ratings[item.id] === score 
+                        ? 'bg-blue-500 text-white' 
+                        : 'hover:bg-blue-500 hover:text-white'
+                    }`}
+                  >
+                    {score}
+                  </button>
+                ))}
+              </div>
             </div>
           ))
         )}
