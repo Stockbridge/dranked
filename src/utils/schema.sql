@@ -11,6 +11,15 @@ CREATE TABLE IF NOT EXISTS events (
   is_active BOOLEAN DEFAULT true
 );
 
+-- Users table (participants in events)
+CREATE TABLE IF NOT EXISTS users (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  event_id UUID NOT NULL REFERENCES events(id) ON DELETE CASCADE,
+  name VARCHAR(255) NOT NULL,
+  joined_at TIMESTAMP DEFAULT NOW(),
+  UNIQUE(event_id, name)
+);
+
 -- Items table
 CREATE TABLE IF NOT EXISTS items (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -22,15 +31,6 @@ CREATE TABLE IF NOT EXISTS items (
   added_by_user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
   added_by_name VARCHAR(255) NOT NULL,
   created_at TIMESTAMP DEFAULT NOW()
-);
-
--- Users table (participants in events)
-CREATE TABLE IF NOT EXISTS users (
-  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  event_id UUID NOT NULL REFERENCES events(id) ON DELETE CASCADE,
-  name VARCHAR(255) NOT NULL,
-  joined_at TIMESTAMP DEFAULT NOW(),
-  UNIQUE(event_id, name)
 );
 
 -- Ratings table
