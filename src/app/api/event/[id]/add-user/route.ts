@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { addUserToEvent } from '../../../../../utils/db/users';
 import { validate } from '../../../../../utils/validation';
 import { ValidationError } from '../../../../../utils/errors';
+import { getEventById } from '@/utils/db/event';
 
 export async function POST(
   request: NextRequest,
@@ -10,6 +11,11 @@ export async function POST(
   try {
     const { id } = await params;
     validate.uuid(id, 'eventId');
+
+    const event = await getEventById(id);
+    if (!event) {
+      return NextResponse.json({ error: 'Event not found' }, { status: 404 });
+    }
 
     const body = await request.json();
     const name = validate.string(body.name, 'name', 1, 100);
