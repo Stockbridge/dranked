@@ -1,7 +1,7 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { createEvent, getEventByJoinCode } from './event';
 
-// Mock the database query function
+// Mock the data query function
 vi.mock('./index', () => ({
   query: vi.fn()
 }));

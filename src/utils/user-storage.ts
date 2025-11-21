@@ -1,4 +1,4 @@
-import type { User } from '../../types/models';
+import type { User, DisplayUser } from '../../types/data';
 
 export type { User };
 
@@ -15,7 +15,7 @@ export function getUserForEvent(eventId: string): User | null {
   }
 }
 
-export function setUserForEvent(eventId: string, user: User): void {
+export function setUserForEvent(eventId: string, user: DisplayUser): void {
   if (typeof window === 'undefined') return;
   localStorage.setItem(`event_${eventId}_user`, JSON.stringify(user));
 }

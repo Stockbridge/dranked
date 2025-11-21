@@ -1,4 +1,4 @@
-import type { Rating } from '../../../types/models';
+import type { Rating } from '../../../types/data';
 
 /**
  * Submits or updates a user's rating for an item.

@@ -5,11 +5,11 @@ import { useRouter } from 'next/navigation';
 import { updateItem } from '@/utils/api/items';
 import ItemForm from '@/components/ItemForm';
 import { getUserForEvent } from '@/utils/user-storage';
-import type { EventSummary, ItemSummary, User } from '../../../../../types/models';
+import type { Event, Item, User } from '../../../../../types/data';
 
 interface EditItemFormProps {
-  event: EventSummary;
-  item: ItemSummary;
+  event: Event;
+  item: Item;
 }
 
 export default function EditItemForm({ event, item }: EditItemFormProps) {

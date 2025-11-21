@@ -27,13 +27,13 @@ describe('Items DB Functions', () => {
       mockQuery.mockResolvedValue(mockResult);
 
       const params = {
-        eventId: 'event-id',
+        event_id: 'event-id',
         name: 'Test Beer',
         producer: 'Test Brewery',
         year: 2023,
         type: 'IPA',
-        addedByUserId: 'user-id',
-        addedByName: 'Test User'
+        added_by_user_id: 'user-id',
+        added_by_name: 'Test User'
       };
 
       const result = await addItemToEvent(params);

@@ -1,5 +1,5 @@
 import { query } from './index';
-import type { UserRow } from '../../../types/database';
+import type { User } from '../../../types/data';
 
 /**
  * Parameters for creating a new user in an event.
@@ -17,9 +17,9 @@ export interface CreateUserParams {
  * 
  * @param params - User creation parameters
  * @returns Promise resolving to the created/updated user record
- * @throws Database error if event doesn't exist or constraint violations
+ * @throws data error if event doesn't exist or constraint violations
  */
-export const addUserToEvent = async (params: CreateUserParams): Promise<UserRow> => {
+export const addUserToEvent = async (params: CreateUserParams): Promise<User> => {
   const result = await query(
     `INSERT INTO users (event_id, name)
      VALUES ($1, $2)
@@ -37,7 +37,7 @@ export const addUserToEvent = async (params: CreateUserParams): Promise<UserRow>
  * @param userId - UUID of the user to retrieve
  * @returns Promise resolving to user record or null if not found
  */
-export const getUserById = async (userId: string): Promise<UserRow | null> => {
+export const getUserById = async (userId: string): Promise<User | null> => {
   const result = await query(
     'SELECT * FROM users WHERE id = $1',
     [userId]

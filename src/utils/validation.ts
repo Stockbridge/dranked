@@ -24,8 +24,8 @@ export const validate = {
     return trimmed;
   },
 
-  optionalString(value: unknown, field: string, maxLength = 255): string | undefined {
-    if (value === undefined || value === null || value === '') return undefined;
+  optionalString(value: unknown, field: string, maxLength = 255): string | null {
+    if (value === undefined || value === null || value === '') return null;
     return this.string(value, field, 0, maxLength);
   },
 
@@ -43,8 +43,8 @@ export const validate = {
     return num;
   },
 
-  optionalNumber(value: unknown, field: string, min?: number, max?: number): number | undefined {
-    if (value === undefined || value === null || value === '') return undefined;
+  optionalNumber(value: unknown, field: string, min?: number, max?: number): number | null {
+    if (value === undefined || value === null || value === '') return null;
     return this.number(value, field, min, max);
   },
 

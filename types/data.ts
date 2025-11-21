@@ -5,7 +5,7 @@
 /**
  * User row from database
  */
-export interface UserRow {
+export interface User {
   /** Unique identifier */
   id: string;
   /** Event this user belongs to */
@@ -17,9 +17,14 @@ export interface UserRow {
 }
 
 /**
+ * Simplified user info
+ */
+export type DisplayUser = Pick<User, 'id' | 'name'>;
+
+/**
  * Event row from database
  */
-export interface EventRow {
+export interface Event {
   /** Unique identifier */
   id: string;
   /** Event name */
@@ -43,7 +48,7 @@ export interface EventRow {
 /**
  * Item row from database
  */
-export interface ItemRow {
+export interface Item {
   /** Unique identifier */
   id: string;
   /** Event this item belongs to */
@@ -67,7 +72,7 @@ export interface ItemRow {
 /**
  * Rating row from database
  */
-export interface RatingRow {
+export interface Rating {
   /** Unique identifier */
   id: string;
   /** Event this rating belongs to */

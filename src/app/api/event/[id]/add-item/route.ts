@@ -25,13 +25,13 @@ export async function POST(
     await verifyUserInEvent(addedByUserId, id);
 
     const item = await addItemToEvent({
-      eventId: id,
+      event_id: id,
       name,
       producer,
       year,
       type,
-      addedByUserId,
-      addedByName
+      added_by_user_id: addedByUserId,
+      added_by_name: addedByName
     });
 
     return NextResponse.json(item);

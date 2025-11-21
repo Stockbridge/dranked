@@ -1,5 +1,5 @@
 import { query } from './index';
-import type { RatingRow } from '../../../types/database';
+import type { Rating } from '../../../types/data';
 
 /**
  * Parameters for creating or updating a user's rating.
@@ -21,9 +21,9 @@ export interface CreateRatingParams {
  * 
  * @param params - Rating parameters
  * @returns Promise resolving to the created/updated rating record
- * @throws Database error if constraints violated (invalid IDs, score out of range)
+ * @throws data error if constraints violated (invalid IDs, score out of range)
  */
-export const updateRating = async (params: CreateRatingParams): Promise<RatingRow> => {
+export const updateRating = async (params: CreateRatingParams): Promise<Rating> => {
   const result = await query(
     `INSERT INTO ratings (event_id, item_id, user_id, score)
      VALUES ($1, $2, $3, $4)
@@ -42,7 +42,7 @@ export const updateRating = async (params: CreateRatingParams): Promise<RatingRo
  * @param userId - UUID of the user
  * @returns Promise resolving to array of rating records (empty if none exist)
  */
-export const getRatingsByEventAndUser = async (eventId: string, userId: string): Promise<RatingRow[]> => {
+export const getRatingsByEventAndUser = async (eventId: string, userId: string): Promise<Rating[]> => {
   const result = await query(
     'SELECT * FROM ratings WHERE event_id = $1 AND user_id = $2',
     [eventId, userId]

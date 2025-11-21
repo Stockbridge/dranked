@@ -5,10 +5,10 @@ import { useRouter } from 'next/navigation';
 import { addItem } from '@/utils/api/items';
 import ItemForm from '@/components/ItemForm';
 import { getUserForEvent } from '@/utils/user-storage';
-import type { User, EventSummary } from '../../../../../types/models';
+import type { User, Event } from '../../../../../types/data';
 
 interface AddItemFormProps {
-  event: EventSummary;
+  event: Event;
 }
 
 export default function AddItemForm({ event }: AddItemFormProps) {

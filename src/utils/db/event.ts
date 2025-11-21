@@ -1,7 +1,7 @@
 import { query } from './index';
 import crypto from 'crypto';
 import { addUserToEvent } from './users';
-import type { EventRow, UserRow } from '../../../types/database';
+import type { Event, User } from '../../../types/data';
 
 /**
  * Parameters for creating a new tasting event.
@@ -23,9 +23,9 @@ export interface CreateEventParams {
  * 
  * @param params - Event creation parameters
  * @returns Promise resolving to event record with generated codes and host user
- * @throws Database error if creation fails
+ * @throws data error if creation fails
  */
-export const createEvent = async (params: CreateEventParams): Promise<EventRow & { host_user: UserRow }> => {
+export const createEvent = async (params: CreateEventParams): Promise<Event & { host_user: User }> => {
   const joinCode = Math.random().toString(36).substring(2, 8).toUpperCase();
   const hostToken = crypto.randomBytes(32).toString('hex');
 
@@ -56,7 +56,7 @@ export const createEvent = async (params: CreateEventParams): Promise<EventRow &
  * @param joinCode - 6-character alphanumeric join code
  * @returns Promise resolving to event record or null if not found/inactive
  */
-export const getEventByJoinCode = async (joinCode: string): Promise<EventRow | null> => {
+export const getEventByJoinCode = async (joinCode: string): Promise<Event | null> => {
   const result = await query(
     'SELECT * FROM events WHERE join_code = $1 AND is_active = true',
     [joinCode]
@@ -71,7 +71,7 @@ export const getEventByJoinCode = async (joinCode: string): Promise<EventRow | n
  * @param hostToken - Optional host token for admin access validation
  * @returns Promise resolving to event record or null if not found/unauthorized
  */
-export const getEventById = async (id: string, hostToken?: string): Promise<EventRow | null> => {
+export const getEventById = async (id: string, hostToken?: string): Promise<Event | null> => {
   const sql = hostToken 
     ? 'SELECT * FROM events WHERE id = $1 AND host_token = $2'
     : 'SELECT * FROM events WHERE id = $1';

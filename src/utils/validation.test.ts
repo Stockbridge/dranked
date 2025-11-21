@@ -38,9 +38,9 @@ describe('validate.string', () => {
 
 describe('validate.optionalString', () => {
   it('returns undefined for empty values', () => {
-    expect(validate.optionalString(undefined, 'field')).toBeUndefined();
-    expect(validate.optionalString(null, 'field')).toBeUndefined();
-    expect(validate.optionalString('', 'field')).toBeUndefined();
+    expect(validate.optionalString(undefined, 'field')).toBeNull();
+    expect(validate.optionalString(null, 'field')).toBeNull();
+    expect(validate.optionalString('', 'field')).toBeNull();
   });
 
   it('validates non-empty strings', () => {
@@ -74,9 +74,9 @@ describe('validate.number', () => {
 
 describe('validate.optionalNumber', () => {
   it('returns undefined for empty values', () => {
-    expect(validate.optionalNumber(undefined, 'year')).toBeUndefined();
-    expect(validate.optionalNumber(null, 'year')).toBeUndefined();
-    expect(validate.optionalNumber('', 'year')).toBeUndefined();
+    expect(validate.optionalNumber(undefined, 'year')).toBeNull();
+    expect(validate.optionalNumber(null, 'year')).toBeNull();
+    expect(validate.optionalNumber('', 'year')).toBeNull();
   });
 
   it('validates non-empty numbers', () => {

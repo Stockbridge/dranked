@@ -1,17 +1,12 @@
 import { query } from './index';
-import type { ItemSummary } from '../../../types/models';
-import type { ItemRow } from '../../../types/database';
+import type { Item } from '../../../types/data';
 
 /**
  * Parameters for adding a new beverage item to an event.
  */
-export interface CreateItemParams extends Omit<ItemSummary, 'id'> {
+export interface CreateItemParams extends Omit<Item, 'id' | 'created_at'> {
   /** UUID of the event to add item to */
-  eventId: string;
-  /** UUID of the user adding this item */
-  addedByUserId: string;
-  /** Name of the user adding this item */
-  addedByName: string;
+  event_id: string;
 }
 
 /**
@@ -19,14 +14,14 @@ export interface CreateItemParams extends Omit<ItemSummary, 'id'> {
  * 
  * @param params - Item creation parameters
  * @returns Promise resolving to the created item record
- * @throws Database error if event doesn't exist or constraints violated
+ * @throws data error if event doesn't exist or constraints violated
  */
-export const addItemToEvent = async (params: CreateItemParams): Promise<ItemRow> => {
+export const addItemToEvent = async (params: CreateItemParams): Promise<Item> => {
   const result = await query(
     `INSERT INTO items (event_id, name, producer, year, type, added_by_user_id, added_by_name)
      VALUES ($1, $2, $3, $4, $5, $6, $7)
      RETURNING *`,
-    [params.eventId, params.name, params.producer, params.year, params.type, params.addedByUserId, params.addedByName]
+    [params.event_id, params.name, params.producer, params.year, params.type, params.added_by_user_id, params.added_by_name]
   );
 
   return result.rows[0];
@@ -38,7 +33,7 @@ export const addItemToEvent = async (params: CreateItemParams): Promise<ItemRow>
  * @param eventId - UUID of the event
  * @returns Promise resolving to array of items (empty if none exist)
  */
-export const getItemsByEventId = async (eventId: string): Promise<ItemRow[]> => {
+export const getItemsByEventId = async (eventId: string): Promise<Item[]> => {
   const result = await query(
     'SELECT * FROM items WHERE event_id = $1 ORDER BY created_at ASC',
     [eventId]
@@ -50,16 +45,16 @@ export const getItemsByEventId = async (eventId: string): Promise<ItemRow[]> => 
 /**
  * Parameters for updating an existing item.
  */
-export type UpdateItemParams = ItemSummary;
+export type UpdateItemParams = Pick<Item, 'id' | 'name' | 'producer' | 'year' | 'type'>;
 
 /**
  * Updates an existing item.
  * 
  * @param params - Item update parameters
  * @returns Promise resolving to the updated item record
- * @throws Database error if item doesn't exist
+ * @throws data error if item doesn't exist
  */
-export const updateItem = async (params: UpdateItemParams): Promise<ItemRow> => {
+export const updateItem = async (params: UpdateItemParams): Promise<Item> => {
   const result = await query(
     `UPDATE items 
      SET name = $1, producer = $2, year = $3, type = $4

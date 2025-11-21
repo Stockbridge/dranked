@@ -4,10 +4,10 @@ import { useState, useEffect } from 'react';
 import { getEventItems } from '@/utils/api/event';
 import { getUserRatings, submitRating } from '@/utils/api/ratings';
 import { getUserForEvent } from '@/utils/user-storage';
-import type { User, EventSummary, Item } from '../../../../types/models';
+import type { User, Event, Item } from '../../../../types/data';
 
 interface EventHomeProps {
-  event: EventSummary;
+  event: Event;
 }
 
 export default function EventHome({ event }: EventHomeProps) {
