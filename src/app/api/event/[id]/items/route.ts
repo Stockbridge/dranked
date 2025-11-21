@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getItemsByEventId } from '../../../../../utils/db/items';
 import { validate } from '../../../../../utils/validation';
 import { ValidationError } from '../../../../../utils/errors';
+import { getEventById } from '@/utils/db/event';
 
 export interface AddItemAPIParams {
   params: Promise<{ id: string }>
@@ -13,7 +14,12 @@ export async function GET(
 ) {
   try {
     const { id } = await params;
-    validate.uuid(id, 'eventId');
+    validate.uuid(id, 'eventId')
+    
+    const event = await getEventById(id);;
+    if (!event) {
+      return NextResponse.json({ error: 'Event not found' }, { status: 404 });
+    }
 
     const items = await getItemsByEventId(id);
     return NextResponse.json(items);
