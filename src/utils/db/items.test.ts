@@ -1,11 +1,11 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { addItemToEvent, getItemsByEventId } from './items';
 
-vi.mock('../db', () => ({
+vi.mock('./index', () => ({
   query: vi.fn()
 }));
 
-import { query } from '../db';
+import { query } from './index';
 const mockQuery = vi.mocked(query);
 
 describe('Items DB Functions', () => {

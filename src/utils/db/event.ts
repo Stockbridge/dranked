@@ -1,4 +1,4 @@
-import { query } from '../db';
+import { query } from './index';
 import crypto from 'crypto';
 import { addUserToEvent } from './users';
 import type { EventRow, UserRow } from '../../../types/database';

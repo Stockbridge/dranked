@@ -1,11 +1,11 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { updateRating, getRatingsByEventAndUser } from './ratings';
 
-vi.mock('../db', () => ({
+vi.mock('./index', () => ({
   query: vi.fn()
 }));
 
-import { query } from '../db';
+import { query } from './index';
 const mockQuery = vi.mocked(query);
 
 describe('Ratings DB Functions', () => {

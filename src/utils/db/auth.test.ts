@@ -1,10 +1,14 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { verifyCanEditItem, AuthError } from './auth';
+import { verifyCanEditItem } from './auth';
+import { AuthError } from '../errors';
 import * as users from './users';
-import * as db from '../db';
+import * as db from './index';
 
 vi.mock('./users');
-vi.mock('../db');
+vi.mock('./index', () => ({
+  query: vi.fn(),
+  default: {}
+}));
 
 describe('verifyCanEditItem', () => {
   beforeEach(() => {

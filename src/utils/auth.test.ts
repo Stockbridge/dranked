@@ -4,6 +4,9 @@ import { AuthError } from './errors';
 import * as users from './db/users';
 
 vi.mock('./db/users');
+vi.mock('./db/index', () => ({
+  query: vi.fn()
+}));
 
 describe('verifyUserInEvent', () => {
   beforeEach(() => {

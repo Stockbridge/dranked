@@ -1,4 +1,4 @@
-import { query } from '../db';
+import { query } from './index';
 import type { RatingRow } from '../../../types/database';
 
 /**

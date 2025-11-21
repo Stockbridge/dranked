@@ -1,4 +1,4 @@
-import { query } from '../db';
+import { query } from './index';
 import type { ItemSummary } from '../../../types/models';
 import type { ItemRow } from '../../../types/database';
 
