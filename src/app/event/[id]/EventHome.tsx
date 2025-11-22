@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { getUserRatings, submitRating } from '@/utils/api/ratings';
 import { getUserForEvent } from '@/utils/user-storage';
 import type { User, Event, Item } from '../../../../types/data';
-import { Button, ButtonLink } from '@/components/Buttons';
+import { Button, ButtonLink, Link } from '@/components/Actions';
 
 interface EventHomeProps {
   event: Event;
@@ -78,12 +78,11 @@ export default function EventHome({ event, items }: EventHomeProps) {
                   {item.year && <div className="text-sm text-secondary">{item.year}</div>}
                 </div>
                 {canEditItem(item) && (
-                  <a
+                  <Link
                     href={`/event/${event.id}/edit?itemId=${item.id}`}
-                    className="ml-2 text-action text-sm hover:underline"
                   >
                     Edit
-                  </a>
+                  </Link>
                 )}
               </div>
               <div className="flex gap-1 mt-2">
@@ -91,11 +90,8 @@ export default function EventHome({ event, items }: EventHomeProps) {
                   <Button
                     key={score}
                     onClick={() => handleRate(item.id, score)}
-                    className={`flex-1 p-1 text-xs rounded ${
-                      ratings[item.id] === score 
-                        ? '' 
-                        : 'border border-action bg-transparent text-text'
-                    }`}
+                    buttonType={ratings[item.id] === score ? 'primary' : 'outline'}
+                    className='flex-1 p-1 text-xs'
                   >
                     <>{score}</>
                   </Button>

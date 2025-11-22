@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { createEvent } from '@/utils/api/event';
 import { getEventDetails } from '@/utils/api/event';
 import { setUserForEvent, getAllEventIds } from '@/utils/user-storage';
-import { Button } from '@/components/Buttons';
+import { Button, Link } from '@/components/Actions';
 import { Input, Select } from '@/components/Inputs';
 
 interface RecentEvent {
@@ -109,7 +109,7 @@ export default function Home() {
           <h1 className="text-2xl mb-4">Join a recent event</h1>
           <div className="space-y-2">
             {recentEvents.map((evt) => (
-              <a
+              <Link
                 key={evt.id}
                 href={`/event/${evt.id}`}
                 className="block p-3 border rounded hover:bg-gray-50"
@@ -118,7 +118,7 @@ export default function Home() {
                 <div className="text-sm text-secondary">
                   {evt.hostName} • {evt.beverageType}
                 </div>
-              </a>
+              </Link>
             ))}
           </div>
         </div>

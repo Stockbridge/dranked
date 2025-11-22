@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { setUserForEvent } from '@/utils/user-storage';
 import type { Event } from '../../../../types/data';
-import { Button } from '@/components/Buttons';
+import { Button } from '@/components/Actions';
 import { Input } from '@/components/Inputs';
 
 interface JoinFormProps {
