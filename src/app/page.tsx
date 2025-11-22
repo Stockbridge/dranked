@@ -6,6 +6,7 @@ import { createEvent } from '@/utils/api/event';
 import { getEventDetails } from '@/utils/api/event';
 import { setUserForEvent, getAllEventIds } from '@/utils/user-storage';
 import { Button } from '@/components/Buttons';
+import { Input, Select } from '@/components/Inputs';
 
 interface RecentEvent {
   id: string;
@@ -67,26 +68,24 @@ export default function Home() {
     <div className="p-4 max-w-md mx-auto">
       <h1 className="text-2xl mb-4">Create a new event</h1>
       
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <input
+      <form onSubmit={handleSubmit} className="space-y-2">
+        <Input
           type="text"
           required
           value={formData.hostName}
           onChange={(e) => setFormData(prev => ({ ...prev, hostName: e.target.value }))}
           placeholder="Your name"
-          className="w-full p-2 border rounded"
         />
 
-        <input
+        <Input
           type="text"
           required
           value={formData.eventName}
           onChange={(e) => setFormData(prev => ({ ...prev, eventName: e.target.value }))}
           placeholder="Event name"
-          className="w-full p-2 border rounded"
         />
 
-        <select
+        <Select
           value={formData.beverageType}
           onChange={(e) => setFormData(prev => ({ ...prev, beverageType: e.target.value as 'beer' | 'wine' | 'whiskey' }))}
           className="w-full p-2 border rounded"
@@ -94,7 +93,7 @@ export default function Home() {
           <option value="beer">Beer</option>
           <option value="wine">Wine</option>
           <option value="whiskey">Whiskey</option>
-        </select>
+        </Select>
 
         <Button
           type="submit"

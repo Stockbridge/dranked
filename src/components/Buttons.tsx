@@ -1,16 +1,22 @@
 'use client';
 
-export type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement>;
+export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+    buttonType?: 'primary' | 'secondary';
+};
 
-export const Button = ({children, className, ...buttonProps}: ButtonProps): React.JSX.Element => {
+export const Button = ({className, buttonType = 'primary', ...buttonProps}: ButtonProps): React.JSX.Element => {
+    const buttonClass = buttonType === 'primary' 
+        ? 'bg-action-background text-action-text border-action-background'
+        : 'bg-secondary text-background';
+    
     return(
-        <button className={`bg-action-background text-action-text ${className}`} {...buttonProps}>{children}</button>
+        <button className={`${buttonClass}  w-full p-3 rounded hover:bg-text hover:text-background ${className}`} {...buttonProps}/>
     );
 }
 
 export type ButtonLinkProps = React.AnchorHTMLAttributes<HTMLAnchorElement>;
-export const ButtonLink = ({children, className, ...buttonProps}: ButtonLinkProps): React.JSX.Element => {
+export const ButtonLink = ({className, ...buttonProps}: ButtonLinkProps): React.JSX.Element => {
     return(
-        <a className={`bg-action-background text-action-text ${className}`} {...buttonProps}>{children}</a>
+        <a className={`bg-action-background text-action-text w-full p-3 rounded ${className}`} {...buttonProps} />
     );
 }

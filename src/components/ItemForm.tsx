@@ -2,6 +2,8 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { Button } from './Buttons';
+import { Input } from './Inputs';
 
 interface ItemFormData {
   name: string;
@@ -56,50 +58,46 @@ export default function ItemForm({
       <p className="mb-4">{eventName}</p>
       
       <form onSubmit={handleSubmit} className="space-y-2">
-        <input
+        <Input
           type="text"
           value={formData.name}
           onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
           placeholder="Name"
-          className="w-full p-2 border rounded"
           required
         />
-        <input
+        <Input
           type="text"
           value={formData.producer}
           onChange={(e) => setFormData(prev => ({ ...prev, producer: e.target.value }))}
           placeholder="Producer (brewery/winery/distillery)"
-          className="w-full p-2 border rounded"
         />
-        <input
+        <Input
           type="text"
           value={formData.type}
           onChange={(e) => setFormData(prev => ({ ...prev, type: e.target.value }))}
           placeholder="Type (IPA, Pinot Noir, etc.)"
-          className="w-full p-2 border rounded"
         />
-        <input
+        <Input
           type="number"
           value={formData.year}
           onChange={(e) => setFormData(prev => ({ ...prev, year: e.target.value }))}
           placeholder="Year"
-          className="w-full p-2 border rounded"
         />
-        <button
+        <Button
           type="submit"
           disabled={isSubmitting || !formData.name.trim()}
-          className="w-full bg-blue-500 text-white p-2 rounded disabled:bg-gray-300"
         >
           {isSubmitting ? 'Saving...' : submitLabel}
-        </button>
+        </Button>
       </form>
 
-      <button
+      <Button
         onClick={() => router.back()}
-        className="w-full mt-2 bg-gray-500 text-white p-2 rounded"
+        buttonType='secondary'
+        className="mt-2"
       >
         Cancel
-      </button>
+      </Button>
     </div>
   );
 }

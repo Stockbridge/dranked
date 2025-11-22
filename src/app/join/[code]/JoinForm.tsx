@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { setUserForEvent } from '@/utils/user-storage';
 import type { Event } from '../../../../types/data';
 import { Button } from '@/components/Buttons';
+import { Input } from '@/components/Inputs';
 
 interface JoinFormProps {
   event: Event;
@@ -58,13 +59,12 @@ export default function JoinForm({ event }: JoinFormProps) {
           <label htmlFor="name" className="block text-sm font-medium mb-1">
             Your Name
           </label>
-          <input
+          <Input
             id="name"
             type="text"
             value={name}
             onChange={(e) => setName(e.target.value)}
             placeholder="Enter your name"
-            className="w-full p-3 border rounded"
             required
             autoFocus
           />
@@ -73,7 +73,6 @@ export default function JoinForm({ event }: JoinFormProps) {
         <Button
           type="submit"
           disabled={isJoining || !name.trim()}
-          className="w-full p-3 rounded"
         >
           {isJoining ? 'Joining...' : 'Join Event'}
         </Button>
