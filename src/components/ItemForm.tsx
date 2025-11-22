@@ -5,6 +5,9 @@ import { useRouter } from 'next/navigation';
 import { Button } from './Actions';
 import { Input } from './Inputs';
 
+/**
+ * Form data structure for beverage items
+ */
 interface ItemFormData {
   name: string;
   producer: string;
@@ -12,16 +15,42 @@ interface ItemFormData {
   type: string;
 }
 
+/**
+ * Props for the ItemForm component
+ */
 interface ItemFormProps {
+  /** UUID of the event */
   eventId: string;
+  /** Display name of the event */
   eventName: string;
+  /** Type of beverage (beer, wine, whiskey) */
   beverageType: string;
+  /** Initial form values for editing existing items */
   initialData?: ItemFormData;
+  /** Async handler called when form is submitted */
   onSubmit: (data: ItemFormData) => Promise<void>;
+  /** Text to display on submit button */
   submitLabel: string;
+  /** Title prefix for the form (e.g., "Add" or "Edit") */
   title: string;
 }
 
+/**
+ * Reusable form component for adding or editing beverage items.
+ * Handles form state, validation, and navigation after submission.
+ * 
+ * @example
+ * ```tsx
+ * <ItemForm
+ *   eventId="abc-123"
+ *   eventName="Friday Beer Night"
+ *   beverageType="beer"
+ *   onSubmit={async (data) => await addItem(eventId, data)}
+ *   submitLabel="Add Item"
+ *   title="Add"
+ * />
+ * ```
+ */
 export default function ItemForm({ 
   eventId, 
   eventName, 
