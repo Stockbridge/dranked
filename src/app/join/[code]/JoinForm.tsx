@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { setUserForEvent } from '@/utils/user-storage';
 import type { Event } from '../../../../types/data';
+import { Button } from '@/components/Buttons';
 
 interface JoinFormProps {
   event: Event;
@@ -48,8 +49,8 @@ export default function JoinForm({ event }: JoinFormProps) {
       <h1 className="text-2xl font-bold mb-2">Join Event</h1>
       <div className="mb-6">
         <h2 className="text-xl">{event.name}</h2>
-        <p className="text-gray-600">Hosted by {event.host_name}</p>
-        <p className="text-gray-600 capitalize">{event.beverage_type} tasting</p>
+        <p className="text-secondary">Hosted by {event.host_name}</p>
+        <p className="text-secondary capitalize">{event.beverage_type} tasting</p>
       </div>
 
       <form onSubmit={handleJoin} className="space-y-4">
@@ -69,13 +70,13 @@ export default function JoinForm({ event }: JoinFormProps) {
           />
         </div>
 
-        <button
+        <Button
           type="submit"
           disabled={isJoining || !name.trim()}
-          className="w-full bg-blue-500 text-white p-3 rounded font-medium disabled:bg-gray-300"
+          className="w-full p-3 rounded"
         >
           {isJoining ? 'Joining...' : 'Join Event'}
-        </button>
+        </Button>
       </form>
     </div>
   );

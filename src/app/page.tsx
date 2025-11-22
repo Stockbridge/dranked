@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { createEvent } from '@/utils/api/event';
 import { getEventDetails } from '@/utils/api/event';
 import { setUserForEvent, getAllEventIds } from '@/utils/user-storage';
+import { Button } from '@/components/Buttons';
 
 interface RecentEvent {
   id: string;
@@ -64,7 +65,7 @@ export default function Home() {
 
   return (
     <div className="p-4 max-w-md mx-auto">
-      <h1 className="text-2xl mb-4">DRanked</h1>
+      <h1 className="text-2xl mb-4">Create a new event</h1>
       
       <form onSubmit={handleSubmit} className="space-y-4">
         <input
@@ -95,18 +96,18 @@ export default function Home() {
           <option value="whiskey">Whiskey</option>
         </select>
 
-        <button
+        <Button
           type="submit"
           disabled={isLoading}
-          className="w-full bg-blue-500 text-white p-2 rounded"
+          className="w-full p-2 rounded"
         >
           {isLoading ? 'Creating...' : 'Create Event'}
-        </button>
+        </Button>
       </form>
 
       {recentEvents.length > 0 && (
         <div className="mt-8">
-          <h2 className="font-bold mb-2">Recent Events</h2>
+          <h1 className="text-2xl mb-4">Join a recent event</h1>
           <div className="space-y-2">
             {recentEvents.map((evt) => (
               <a
@@ -115,7 +116,7 @@ export default function Home() {
                 className="block p-3 border rounded hover:bg-gray-50"
               >
                 <div className="font-medium">{evt.name}</div>
-                <div className="text-sm text-gray-600">
+                <div className="text-sm text-secondary">
                   {evt.hostName} • {evt.beverageType}
                 </div>
               </a>

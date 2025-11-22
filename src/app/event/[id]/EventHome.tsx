@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { getUserRatings, submitRating } from '@/utils/api/ratings';
 import { getUserForEvent } from '@/utils/user-storage';
 import type { User, Event, Item } from '../../../../types/data';
+import { Button, ButtonLink } from '@/components/Buttons';
 
 interface EventHomeProps {
   event: Event;
@@ -53,17 +54,17 @@ export default function EventHome({ event, items }: EventHomeProps) {
       <h1 className="text-xl mb-2">{event.name}</h1>
       <p className="mb-4">Join code: <strong>{event.join_code}</strong></p>
       
-      <a
+      <ButtonLink
         href={`/event/${event.id}/add`}
-        className="block w-full bg-green-500 text-white p-2 rounded text-center mb-4"
+        className="block w-full p-2 rounded text-center mb-4"
       >
         Add New Item
-      </a>
+      </ButtonLink>
 
       <div>
         <h2 className="font-bold mb-2">Items ({items.length})</h2>
         {items.length === 0 ? (
-          <p className="text-gray-500 text-center py-8">
+          <p className="text-secondary text-center py-8">
             No items added yet. Add your first {event.beverage_type} above!
           </p>
         ) : (
@@ -72,14 +73,14 @@ export default function EventHome({ event, items }: EventHomeProps) {
               <div className="flex justify-between items-start mb-2">
                 <div className="flex-1">
                   <div className="font-medium">{item.name}</div>
-                  {item.producer && <div className="text-sm text-gray-600">{item.producer}</div>}
-                  {item.type && <div className="text-sm text-gray-600">{item.type}</div>}
-                  {item.year && <div className="text-sm text-gray-600">{item.year}</div>}
+                  {item.producer && <div className="text-sm text-secondary">{item.producer}</div>}
+                  {item.type && <div className="text-sm text-secondary">{item.type}</div>}
+                  {item.year && <div className="text-sm text-secondary">{item.year}</div>}
                 </div>
                 {canEditItem(item) && (
                   <a
                     href={`/event/${event.id}/edit?itemId=${item.id}`}
-                    className="ml-2 text-blue-500 text-sm hover:underline"
+                    className="ml-2 text-action text-sm hover:underline"
                   >
                     Edit
                   </a>
@@ -87,17 +88,17 @@ export default function EventHome({ event, items }: EventHomeProps) {
               </div>
               <div className="flex gap-1 mt-2">
                 {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((score) => (
-                  <button
+                  <Button
                     key={score}
                     onClick={() => handleRate(item.id, score)}
-                    className={`flex-1 p-1 text-xs border rounded ${
+                    className={`flex-1 p-1 text-xs rounded ${
                       ratings[item.id] === score 
-                        ? 'bg-blue-500 text-white' 
-                        : 'hover:bg-blue-500 hover:text-white'
+                        ? '' 
+                        : 'border border-action bg-transparent text-text'
                     }`}
                   >
-                    {score}
-                  </button>
+                    <>{score}</>
+                  </Button>
                 ))}
               </div>
             </div>
