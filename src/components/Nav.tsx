@@ -1,5 +1,5 @@
 'use client';
-
+import {Logo} from './logo'
 import React from "react";
 
 /**
@@ -13,6 +13,9 @@ import React from "react";
  */
 export const Nav = (): React.JSX.Element => {
     return (
-        <nav className="">DRanked</nav>
+        <nav className="flex justify-center items-center gap-2 font-bold text-1xl py-2 border-b border-secondary">
+            <Logo />
+            <span>dranked</span>
+        </nav>
     );
 }
