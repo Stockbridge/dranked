@@ -51,31 +51,43 @@ export default function EventHome({ event, items }: EventHomeProps) {
 
   return (
     <div className="p-4 max-w-md mx-auto">
-      <h1 className="text-xl mb-2">{event.name}</h1>
-      <p className="mb-4">Join code: <strong>{event.join_code}</strong></p>
-      
-      <ButtonLink
-        href={`/event/${event.id}/add`}
-        className="block w-full p-2 rounded text-center mb-4"
-      >
-        Add New Item
-      </ButtonLink>
-
+      <div className='border-b pb-3'>
+        <div className='flex justify-between items-center'>
+        <h1 className="text-xl mb-2">{event.name}</h1>
+        <p className="mb-4">Join code: <Link href={`/join/${event.join_code}`}><strong>{event.join_code}</strong></Link></p>
+        </div>
+        <div className='flex justify-between items-center'>
+          <h2 className="font-bold">Items ({items.length})</h2>
+          <Link href={`/event/${event.id}/add`}>
+            Add a {event.beverage_type}<span className='text-lg px-1.5'>+</span>
+          </Link>
+        </div>
+      </div>
       <div>
-        <h2 className="font-bold mb-2">Items ({items.length})</h2>
-        {items.length === 0 ? (
+        {items.length === 0 && (
+          <>
           <p className="text-secondary text-center py-8">
-            No items added yet. Add your first {event.beverage_type} above!
+            No items added yet. Add your first {event.beverage_type}!
           </p>
-        ) : (
+          <ButtonLink
+            href={`/event/${event.id}/add`}
+            className='inline-block text-center'
+          >
+            Add New Item
+          </ButtonLink>
+        </>
+        ) }
+        {items.length > 0 && ( 
           items.map((item) => (
-            <div key={item.id} className="p-3 border-b">
+            <div key={item.id} className="p-3 border-b border-secondary py-5 mb-2">
               <div className="flex justify-between items-start mb-2">
                 <div className="flex-1">
                   <div className="font-medium">{item.name}</div>
-                  {item.producer && <div className="text-sm text-secondary">{item.producer}</div>}
-                  {item.type && <div className="text-sm text-secondary">{item.type}</div>}
-                  {item.year && <div className="text-sm text-secondary">{item.year}</div>}
+                  <ul className='flex gap-2'>
+                  {item.producer && <li className="text-sm text-secondary">{item.producer}</li>}
+                  {item.type && <li className="text-sm text-secondary">{item.type}</li>}
+                  {item.year && <li className="text-sm text-secondary">{item.year}</li>}
+                  </ul>
                 </div>
                 {canEditItem(item) && (
                   <Link
